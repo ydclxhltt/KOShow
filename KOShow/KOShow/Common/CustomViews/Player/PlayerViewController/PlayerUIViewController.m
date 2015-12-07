@@ -53,7 +53,7 @@
     UIButton *backButton = [CreateViewTool createButtonWithFrame:CGRectMake(SPACE_X, y, backImage.size.width/3, backImage.size.height/3) buttonImage:@"player_back" selectorName:@"smallViewBackButtonPressed:" tagDelegate:self];
     [_topSmallView addSubview:backButton];
     
-    _topSmallView.frame = CGRectMake(0, 0, backButton.frame.size.width, backButton.frame.size.height);
+    _topSmallView.frame = CGRectMake(0, 0,2 * backButton.frame.size.width, 2 * backButton.frame.size.height);
 }
 
 //大Top
