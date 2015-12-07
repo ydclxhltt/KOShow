@@ -1,0 +1,29 @@
+//
+//  KOShow.pch
+//  KOShow
+//
+//  Created by 陈磊 on 15/11/25.
+//  Copyright © 2015年 chenlei. All rights reserved.
+//
+
+#ifndef KOShow_pch
+#define KOShow_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "CreateViewTool.h"
+#import "CommonHeader.h"
+#import "KOShowHeader.h"
+#import "RequestTool.h"
+#import "KOShowShareApplication.h"
+//#import "SVProgressHUD.h"
+//#import "ACMacros.h"
+#endif
+
+//#define NSLog(...) {}
+
+#endif /* KOShow_pch */
