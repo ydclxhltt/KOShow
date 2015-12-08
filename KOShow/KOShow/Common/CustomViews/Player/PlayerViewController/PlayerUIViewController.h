@@ -23,6 +23,7 @@ typedef enum : NSUInteger {
 #import "BasicViewController.h"
 #import "PlayerBottomControlView.h"
 #import "PlayerFullTopControlView.h"
+#import "PlayerLiveFullBottomControlView.h"
 
 @interface PlayerUIViewController : BasicViewController<PlayerFullTopControlViewDelegate,PlayerBottomControlViewDelegate>
 
@@ -31,7 +32,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) PlayerBottomControlView *videoBottomControlView;  //点播大小下
 @property (nonatomic, strong) PlayerFullTopControlView *fullTopControlView;     //点播直播大上
 @property (nonatomic, strong) UIView *topSmallView;                             //点播直播小上
-@property (nonatomic, strong) UIView *liveBottomSmallView;                      //直播小下
+@property (nonatomic, strong) UIView *liveSmallBottomView;                      //直播小下
+@property (nonatomic, strong) PlayerLiveFullBottomControlView *liveFullBottomView;                       //直播大下
 
 @end
 

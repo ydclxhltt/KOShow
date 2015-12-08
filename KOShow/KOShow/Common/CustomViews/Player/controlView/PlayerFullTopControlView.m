@@ -8,7 +8,7 @@
 
 #define SPACE_X         PLAYER_SPACE_X
 #define SPACE_Y         10.0
-#define ADD_X           20.0
+#define ADD_X           SPACE_X
 #define BUTTON_WIDTH    60.0
 #define LINE_COLOR      RGB(55.0,55.0,55.0)
 #define LINT_WIDTH      2.0
@@ -32,7 +32,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        self.backgroundColor = PLAYER_CONTROL_VIEW_COLOR;
         start_x = SPACE_X;
         [self initUIWithRoomName:name buttonArray:array];
     }
@@ -102,5 +102,6 @@
         [self.delegate playerFullTopControlViewBackButtonPressed:sender];
     }
 }
+
 
 @end

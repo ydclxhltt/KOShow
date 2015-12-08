@@ -35,7 +35,7 @@ typedef void (^SlideHandle)(CGFloat,BOOL);
     if (self)
     {
         [self initUI];
-        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        self.backgroundColor = PLAYER_CONTROL_VIEW_COLOR;
 
     }
     return self;
@@ -56,7 +56,7 @@ typedef void (^SlideHandle)(CGFloat,BOOL);
         _playPauseBtn.frame = CGRectMake(start_x, y, width, height);
         [_playPauseBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_playPauseBtn setBackgroundImage:image forState:UIControlStateNormal];
-        [_playPauseBtn setBackgroundImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
+        //[_playPauseBtn setBackgroundImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
         [_playPauseBtn setTag:KBASETAG + 1];
         [self addSubview:_playPauseBtn];
     }
@@ -111,34 +111,12 @@ typedef void (^SlideHandle)(CGFloat,BOOL);
 
 }
 
-
+#pragma mark 设置视频时间
 -(void)setVideoDuration:(CGFloat)videoDuration
 {
     _videoDuration = videoDuration;
     
     [self updateProgressText];
-}
-
--(void)setIsPlaying:(BOOL)isPlaying
-{
-    _isPlaying = isPlaying;
-    if(_isPlaying)
-    {
-        [_playPauseBtn setBackgroundImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
-    }
-    else
-    {
-        [_playPauseBtn setBackgroundImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
-    }
-}
-
--(void)setIsControlEnable:(BOOL)isControlEnable
-{
-    _isControlEnable = isControlEnable;
-    
-    [_playPauseBtn setEnabled:_isControlEnable];
-    [_fullscreenBtn setEnabled:_isControlEnable];
-    [_progress setEnabled:_isControlEnable];
 }
 
 -(void)setCurrentTime:(CGFloat)currentTime
@@ -179,12 +157,35 @@ typedef void (^SlideHandle)(CGFloat,BOOL);
     }
 }
 
+
+#pragma mark 设置图标
+-(void)setIsPlaying:(BOOL)isPlaying
+{
+    _isPlaying = isPlaying;
+    if(_isPlaying)
+    {
+        [_playPauseBtn setBackgroundImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_playPauseBtn setBackgroundImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    }
+}
+
+-(void)setIsControlEnable:(BOOL)isControlEnable
+{
+    _isControlEnable = isControlEnable;
+    
+    [_playPauseBtn setEnabled:_isControlEnable];
+    [_fullscreenBtn setEnabled:_isControlEnable];
+    [_progress setEnabled:_isControlEnable];
+}
+
+#pragma mark 按钮事件
 -(void)buttonAction:(UIButton *)sender
 {
     NSInteger tag = sender.tag - KBASETAG;
-   
-    sender.selected = !sender.selected;
-    
+
     if (tag == 1)
     {
         if (self.delegate && [self.delegate respondsToSelector:@selector(playerBottomControlViewPlayButtonPressed:)])
@@ -227,7 +228,7 @@ typedef void (^SlideHandle)(CGFloat,BOOL);
 }
 
 
-
+#pragma mark 刷新Frame
 - (void)resetFrame
 {
     [self initUI];

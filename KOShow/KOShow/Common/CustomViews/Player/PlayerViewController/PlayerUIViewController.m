@@ -52,8 +52,7 @@
     float y = (NAVBAR_HEIGHT - backImage.size.height/3)/2 + STATUS_BAR_HEIGHT;
     UIButton *backButton = [CreateViewTool createButtonWithFrame:CGRectMake(SPACE_X, y, backImage.size.width/3, backImage.size.height/3) buttonImage:@"player_back" selectorName:@"smallViewBackButtonPressed:" tagDelegate:self];
     [_topSmallView addSubview:backButton];
-    
-    _topSmallView.frame = CGRectMake(0, 0,2 * backButton.frame.size.width, 2 * backButton.frame.size.height);
+
 }
 
 //大Top
@@ -81,13 +80,28 @@
 //直播小底部
 - (void)addLiveSmallBottomView
 {
+    UIImage *image = [UIImage imageNamed:@"play_fullscreen_up"];
+    float width = image.size.width/3;
+    float height = image.size.height/3;
     
+    _liveSmallBottomView = [[UIView alloc] initWithFrame:CGRectMake(0, SMALL_HEIGHT - BOTTOM_HEIGHT, self.view.frame.size.width, BOTTOM_HEIGHT)];
+    [self.view addSubview:_liveSmallBottomView];
+    
+    float y = (_liveSmallBottomView.frame.size.height - height)/2;
+    UIButton *fullScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    fullScreenButton.frame = CGRectMake(self.view.frame.size.width - SPACE_X - width , y, width, height);
+    [fullScreenButton addTarget:self action:@selector(playerBottomControlViewSwitchScreenButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [fullScreenButton setBackgroundImage:image forState:UIControlStateNormal];
+    [_liveSmallBottomView addSubview:fullScreenButton];
+ 
 }
 
 //直播大底部
 - (void)addLiveFullBottomView
 {
-    
+    _liveFullBottomView = [[PlayerLiveFullBottomControlView alloc] initWithFrame:CGRectMake(0, SCREEN_WIDTH - BOTTOM_HEIGHT, SCREEN_HEIGHT, BOTTOM_HEIGHT)];
+    _liveFullBottomView.hidden = YES;
+    [self.view addSubview:_liveFullBottomView];
 }
 
 #pragma mark 返回按钮
@@ -134,18 +148,55 @@
     CGPoint point = [tapGesture locationInView:self.view];
     if (self.playerViewSize == PlayerViewSizeSmallScreen)
     {
-        if(!CGRectContainsPoint(self.videoBottomControlView.frame, point) && !CGRectContainsPoint(self.topSmallView.frame, point))
+        if (self.playerViewType == PlayerViewTypeVideo)
         {
-            if (self.videoBottomControlView)
+            if(!CGRectContainsPoint(self.videoBottomControlView.frame, point) && !CGRectContainsPoint(self.topSmallView.frame, point))
             {
-                [self.videoBottomControlView setHidden:!self.videoBottomControlView.isHidden];
+                if (self.videoBottomControlView)
+                {
+                    [self.videoBottomControlView setHidden:!self.videoBottomControlView.isHidden];
+                }
+                [self.topSmallView setHidden:!self.topSmallView.isHidden];
             }
-            [self.topSmallView setHidden:!self.topSmallView.isHidden];
         }
+        else
+        {
+            if(!CGRectContainsPoint(self.liveSmallBottomView.frame, point) && !CGRectContainsPoint(self.topSmallView.frame, point))
+            {
+                if (self.liveSmallBottomView)
+                {
+                    [self.liveSmallBottomView setHidden:!self.liveSmallBottomView.isHidden];
+                }
+                [self.topSmallView setHidden:!self.topSmallView.isHidden];
+            }
+
+        }
+
     }
     else
     {
-        
+        if (self.playerViewType == PlayerViewTypeVideo)
+        {
+            if(!CGRectContainsPoint(self.videoBottomControlView.frame, point) && !CGRectContainsPoint(self.fullTopControlView.frame, point))
+            {
+                if (self.videoBottomControlView)
+                {
+                    [self.videoBottomControlView setHidden:!self.videoBottomControlView.isHidden];
+                }
+                [self.fullTopControlView setHidden:!self.fullTopControlView.isHidden];
+            }
+        }
+        else
+        {
+            if(!CGRectContainsPoint(self.liveFullBottomView.frame, point) && !CGRectContainsPoint(self.fullTopControlView.frame, point))
+            {
+                if (self.liveFullBottomView)
+                {
+                    [self.liveFullBottomView setHidden:!self.liveFullBottomView.isHidden];
+                }
+                [self.fullTopControlView setHidden:!self.fullTopControlView.isHidden];
+            }
+        }
     }
 
 }

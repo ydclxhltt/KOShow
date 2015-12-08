@@ -125,21 +125,24 @@
     [self removeTimeObserver];
     
     __weak typeof(self) weakSelf = self;
-    self.timeObserver = [_videoPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time)
+    if (self.playerViewType == PlayerViewTypeVideo)
     {
-        CGFloat currentTime = CMTimeGetSeconds(time);
-        [weakSelf.videoBottomControlView setSlideValue:currentTime / weakSelf.videoBottomControlView.videoDuration];
-    }];
-    
+        self.timeObserver = [_videoPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time)
+                             {
+                                 CGFloat currentTime = CMTimeGetSeconds(time);
+                                 [weakSelf.videoBottomControlView setSlideValue:currentTime / weakSelf.videoBottomControlView.videoDuration];
+                             }];
+        
+    }
+
     if(!_videoView)
     {
         self.videoView = [[AvVideoView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, SMALL_HEIGHT)];
         _videoView.translatesAutoresizingMaskIntoConstraints = NO;
         _videoView.player = _videoPlayer;
         [_videoView setFillMode:AVLayerVideoGravityResizeAspectFill];
-        [self.view insertSubview:_videoView belowSubview:self.videoBottomControlView];
+        [self.view insertSubview:_videoView atIndex:0];
     }
-    [self.view sendSubviewToBack:_videoView];
     
     [_videoPlayer play];
 }
@@ -178,6 +181,14 @@
             self.videoBottomControlView.frame = CGRectMake(0, _originFrame.size.height - BOTTOM_HEIGHT, _originFrame.size.width, BOTTOM_HEIGHT);
             [ self.videoBottomControlView resetFrame];
         }
+        if (self.liveSmallBottomView)
+        {
+            self.liveSmallBottomView.hidden = NO;
+        }
+        if (self.liveFullBottomView)
+        {
+            self.liveFullBottomView.hidden = YES;
+        }
         self.topSmallView.hidden = NO;
         self.fullTopControlView.hidden = YES;
     }
@@ -199,6 +210,14 @@
         {
             self.videoBottomControlView.frame = CGRectMake(0, frect.size.height - BOTTOM_HEIGHT, frect.size.width, BOTTOM_HEIGHT);
             [ self.videoBottomControlView resetFrame];
+        }
+        if (self.liveSmallBottomView)
+        {
+            self.liveSmallBottomView.hidden = YES;
+        }
+        if (self.liveFullBottomView)
+        {
+            self.liveFullBottomView.hidden = NO;
         }
         self.topSmallView.hidden = YES;
         self.fullTopControlView.hidden = NO;
@@ -222,25 +241,35 @@
         switch (status)
         {
             case AVPlayerStatusReadyToPlay:
-            {   
-                [self.videoBottomControlView setIsPlaying:YES];
-                [self.videoBottomControlView setIsControlEnable:YES];
+            {
                 //只有在播放状态才能获取视频时间长度
                 AVPlayerItem *playerItem = (AVPlayerItem *)object;
                 NSTimeInterval duration = CMTimeGetSeconds(playerItem.asset.duration);
-                self.videoBottomControlView.videoDuration = duration;
+                if (self.videoBottomControlView)
+                {
+                    [self.videoBottomControlView setIsPlaying:YES];
+                    [self.videoBottomControlView setIsControlEnable:YES];
+                    self.videoBottomControlView.videoDuration = duration;
+                }
+                
             }
                 break;
             case AVPlayerStatusFailed:
             {
-                [self.videoBottomControlView setIsPlaying:NO];
+                if (self.videoBottomControlView)
+                {
+                    [self.videoBottomControlView setIsPlaying:NO];
+                }
                 AVPlayerItem *playerItem = (AVPlayerItem *)object;
                 [self assetFailedToPrepareForPlayback:playerItem.error];
             }
                 break;
             case AVPlayerStatusUnknown:
             {
-                [self.videoBottomControlView setIsPlaying:NO];
+                if (self.videoBottomControlView)
+                {
+                    [self.videoBottomControlView setIsPlaying:NO];
+                }
             }
                 break;
             default:
@@ -254,12 +283,18 @@
 {
     if(self.videoPlayer.rate > 0)
     {
-        self.videoBottomControlView.isPlaying = NO;
+        if (self.videoBottomControlView)
+        {
+             self.videoBottomControlView.isPlaying = NO;
+        }
         [self.videoPlayer pause];
     }
     else
     {
-        self.videoBottomControlView.isPlaying = YES;
+        if (self.videoBottomControlView)
+        {
+            self.videoBottomControlView.isPlaying = YES;
+        }
         [self.videoPlayer play];
     }
 }
