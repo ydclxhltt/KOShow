@@ -40,6 +40,7 @@
 /*****播放器*****/
 #define SMALL_HEIGHT               225.0 * CURRENT_SCALE
 #define PLAYER_SPACE_X             15.0
+#define PLAYER_CONTROL_VIEW_COLOR  RGBA(0.0,0.0,0.0,0.7)
 
 
 
