@@ -11,7 +11,7 @@
 #define ADVVIEW_HEIGHT      105.0 * CURRENT_SCALE
 
 #import "LiveViewController.h"
-#import "AvPlayerViewController.h"
+#import "LiveRoomViewController.h"
 #import "VideoListCell.h"
 #import "SegmentView.h"
 #import "AdvView.h"
@@ -103,11 +103,11 @@
 #pragma mark 点击进入房间
 - (void)clickButtonPressed:(UIButton *)sender
 {
-    AvPlayerViewController *avPlayerViewController = [[AvPlayerViewController alloc] init];
-    avPlayerViewController.playerViewType = PlayerViewTypeLive;
-    avPlayerViewController.hidesBottomBarWhenPushed = YES;
-    [avPlayerViewController setVideoUrl:@"http://183.232.54.230:1935/vod/sycf/2015/11/17/yl1116lxcp01_zqbz.mp4/playlist.m3u8?sessionID=d9ffcbe9b9fa4bb5861612def1df6552"];
-    [self.navigationController pushViewController:avPlayerViewController animated:YES];
+    LiveRoomViewController *liveRoomViewController = [[LiveRoomViewController alloc] init];
+    liveRoomViewController.playerViewType = PlayerViewTypeLive;
+    liveRoomViewController.hidesBottomBarWhenPushed = YES;
+    [liveRoomViewController setVideoUrl:@"http://183.232.54.230:1935/vod/sycf/2015/11/17/yl1116lxcp01_zqbz.mp4/playlist.m3u8?sessionID=d9ffcbe9b9fa4bb5861612def1df6552"];
+    [self.navigationController pushViewController:liveRoomViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -30,7 +30,6 @@
     [super viewDidLoad];
     self.originFrame = CGRectMake(0, 0, self.view.frame.size.width, SMALL_HEIGHT);
     // Do any additional setup after loading the view.
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 
@@ -125,7 +124,7 @@
     [self removeTimeObserver];
     
     __weak typeof(self) weakSelf = self;
-    if (self.playerViewType == PlayerViewTypeVideo)
+    if (weakSelf.videoBottomControlView)
     {
         self.timeObserver = [_videoPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time)
                              {
@@ -141,7 +140,7 @@
         _videoView.translatesAutoresizingMaskIntoConstraints = NO;
         _videoView.player = _videoPlayer;
         [_videoView setFillMode:AVLayerVideoGravityResizeAspectFill];
-        [self.view insertSubview:_videoView atIndex:0];
+        [self.upSideView insertSubview:_videoView atIndex:0];
     }
     
     [_videoPlayer play];
@@ -175,6 +174,7 @@
     [UIView animateWithDuration:0.5f animations:^{
         self.view.transform = CGAffineTransformMakeRotation(0);
         self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.upSideView.frame = CGRectMake(0, 0, _originFrame.size.width,  _originFrame.size.height);
         self.videoView.frame = CGRectMake(0, 0, _originFrame.size.width,  _originFrame.size.height);
         if (self.videoBottomControlView)
         {
@@ -187,6 +187,7 @@
         }
         if (self.liveFullBottomView)
         {
+            [self.liveFullBottomView reSetFrame];
             self.liveFullBottomView.hidden = YES;
         }
         self.topSmallView.hidden = NO;
@@ -205,6 +206,7 @@
          CGRect frect = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
         self.view.frame = frect;
         self.view.center = CGPointMake(frect.size.height/2, frect.size.width/2);
+        self.upSideView.frame = CGRectMake(0, 0, frect.size.width,  frect.size.height);
         self.videoView.frame = CGRectMake(0, 0, frect.size.width,  frect.size.height);
         if (self.videoBottomControlView)
         {
@@ -251,7 +253,10 @@
                     [self.videoBottomControlView setIsControlEnable:YES];
                     self.videoBottomControlView.videoDuration = duration;
                 }
-                
+                if (self.liveFullBottomView)
+                {
+                    [self.liveFullBottomView setIsPlaying:YES];
+                }
             }
                 break;
             case AVPlayerStatusFailed:
@@ -259,6 +264,10 @@
                 if (self.videoBottomControlView)
                 {
                     [self.videoBottomControlView setIsPlaying:NO];
+                }
+                if (self.liveFullBottomView)
+                {
+                    [self.liveFullBottomView setIsPlaying:NO];
                 }
                 AVPlayerItem *playerItem = (AVPlayerItem *)object;
                 [self assetFailedToPrepareForPlayback:playerItem.error];
@@ -270,6 +279,10 @@
                 {
                     [self.videoBottomControlView setIsPlaying:NO];
                 }
+                if (self.liveFullBottomView)
+                {
+                    [self.liveFullBottomView setIsPlaying:NO];
+                }
             }
                 break;
             default:
@@ -279,13 +292,17 @@
 }
 
 #pragma mark 播放/暂停
-- (void)playerBottomControlViewPlayButtonPressed:(UIButton *)sender
+- (void)playPauseButtonPressed:(UIButton *)sender
 {
     if(self.videoPlayer.rate > 0)
     {
         if (self.videoBottomControlView)
         {
              self.videoBottomControlView.isPlaying = NO;
+        }
+        if (self.liveFullBottomView)
+        {
+            self.liveFullBottomView.isPlaying = NO;
         }
         [self.videoPlayer pause];
     }
@@ -294,6 +311,10 @@
         if (self.videoBottomControlView)
         {
             self.videoBottomControlView.isPlaying = YES;
+        }
+        if (self.liveFullBottomView)
+        {
+            self.liveFullBottomView.isPlaying = YES;
         }
         [self.videoPlayer play];
     }
@@ -340,6 +361,12 @@
 }
 
 
+#pragma mark 刷新
+- (void)playerLiveRefreshButtonPressed:(UIButton *)sender
+{
+    //[self setVideoUrl:self.videoUrl];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -351,7 +378,6 @@
     [self.item removeObserver:self forKeyPath:@"status"];
     [self.videoPlayer cancelPendingPrerolls];
     self.fullTopControlView.delegate = nil;
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 /*
  #pragma mark - Navigation

@@ -129,7 +129,7 @@
 //添加表
 - (void)addTableViewWithFrame:(CGRect)frame tableType:(UITableViewStyle)type tableDelegate:(id)delegate
 {
-    _table=[[UITableView alloc]initWithFrame:frame style:type];
+    _table = [[UITableView alloc]initWithFrame:frame style:type];
     _table.dataSource=delegate;
     _table.delegate=delegate;
     _table.backgroundColor = [UIColor clearColor];

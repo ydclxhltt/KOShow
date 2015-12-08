@@ -41,6 +41,8 @@
 #define SMALL_HEIGHT               225.0 * CURRENT_SCALE
 #define PLAYER_SPACE_X             15.0
 #define PLAYER_CONTROL_VIEW_COLOR  RGBA(0.0,0.0,0.0,0.7)
+#define LINE_COLOR                 RGB(107.0,107.0,107.0)
+#define LINT_WIDTH                 0.5
 
 
 

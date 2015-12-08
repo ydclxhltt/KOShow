@@ -188,9 +188,9 @@ typedef void (^SlideHandle)(CGFloat,BOOL);
 
     if (tag == 1)
     {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(playerBottomControlViewPlayButtonPressed:)])
+        if (self.delegate && [self.delegate respondsToSelector:@selector(playPauseButtonPressed:)])
         {
-            [self.delegate playerBottomControlViewPlayButtonPressed:sender];
+            [self.delegate playPauseButtonPressed:sender];
         }
     }
     if (tag == 2)

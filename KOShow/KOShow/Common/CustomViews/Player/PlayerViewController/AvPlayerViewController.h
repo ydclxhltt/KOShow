@@ -11,6 +11,6 @@
 
 @interface AvPlayerViewController : PlayerUIViewController
 
-@property (nonatomic,copy) NSString *videoUrl;
+@property (nonatomic, strong) NSString *videoUrl;
 
 @end

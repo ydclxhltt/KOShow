@@ -26,7 +26,7 @@
 
 @optional
 
-- (void)playerBottomControlViewPlayButtonPressed:(UIButton *)sender;
+- (void)playPauseButtonPressed:(UIButton *)sender;
 - (void)playerBottomControlViewSwitchScreenButtonPressed:(UIButton *)sender;
 - (void)playerBottomControlViewSlider:(UISlider *)sender ValueChanged:(NSTimeInterval)interval isFinished:(BOOL)isFinish;
 

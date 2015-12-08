@@ -10,8 +10,7 @@
 #define SPACE_Y         10.0
 #define ADD_X           SPACE_X
 #define BUTTON_WIDTH    60.0
-#define LINE_COLOR      RGB(55.0,55.0,55.0)
-#define LINT_WIDTH      2.0
+
 
 #import "PlayerFullTopControlView.h"
 
@@ -88,7 +87,7 @@
     UIImageView *imageView = [CreateViewTool createImageViewWithFrame:CGRectMake(start_x, STATUS_BAR_HEIGHT + SPACE_Y, LINT_WIDTH, self.frame.size.height - STATUS_BAR_HEIGHT - 2 * SPACE_Y) placeholderImage:nil];
     imageView.backgroundColor = LINE_COLOR;
     [self addSubview:imageView];
-    start_x += 5.0;
+    start_x += 10.0;
     float width = right_x - start_x - ADD_X;
     _roomNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(start_x, STATUS_BAR_HEIGHT, width, self.frame.size.height - STATUS_BAR_HEIGHT) textString:name textColor:[UIColor whiteColor] textFont:FONT(15.0)];
     [self addSubview:_roomNameLabel];
