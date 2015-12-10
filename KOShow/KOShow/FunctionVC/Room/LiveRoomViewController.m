@@ -22,11 +22,13 @@
 
 
 #import "LiveRoomViewController.h"
+#import "AnchorDetailView.h"
 
 @interface LiveRoomViewController()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *chatTableView;
 @property (nonatomic, strong) UITableView *rankTableView;
+@property (nonatomic, strong) AnchorDetailView *anchorDetailView;
 
 @end
 
@@ -104,7 +106,13 @@
 
 - (void)addAnchorView
 {
-    
+    if (_anchorDetailView)
+    {
+        return;
+    }
+    _anchorDetailView = [[AnchorDetailView alloc] initWithFrame:CGRectMake(0, BUTTON_BAR_HEIGHT + ADD_Y, self.view.frame.size.width, self.downSideView.frame.size.height - BUTTON_BAR_HEIGHT - ADD_Y)];
+    _anchorDetailView.tag = 1001;
+    [self.downSideView addSubview:_anchorDetailView];
 }
 
 - (void)addRankView
