@@ -12,15 +12,21 @@
 
 @implementation RoomToolBarView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame toolBarType:(RoomToolBarViewType)type
 {
     self = [super initWithFrame:frame];
     if (self)
     {
         self.backgroundColor = BG_COLOR;
+        [self initUIWithType:type];
     }
     return self;
 }
 
+#pragma mark 初始化UI
+- (void)initUIWithType:(RoomToolBarViewType)type
+{
+    
+}
 
 @end
