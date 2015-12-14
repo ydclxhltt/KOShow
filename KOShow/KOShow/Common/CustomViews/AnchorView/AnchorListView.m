@@ -10,7 +10,6 @@
 #define SPACE_Y             10.0 * CURRENT_SCALE
 #define ADD_X               20.0 * CURRENT_SCALE
 #define ADD_Y               5.0 * CURRENT_SCALE
-#define LAYER_COLOR         RGB(230.0, 230.0, 230.0)
 
 #import "AnchorListView.h"
 

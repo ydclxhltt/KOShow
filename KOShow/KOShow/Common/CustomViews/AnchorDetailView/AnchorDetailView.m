@@ -78,8 +78,11 @@
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(x, y, self.frame.size.width - 2 * x, self.frame.size.height - y - SPACE_Y)];
     _textView.textColor = DETAIL_TEXT_COLOR;
     _textView.editable = NO;
-    _textView.font = FONT(15.0);
-    _textView.text = @"美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军...";
+    _textView.font = DETAIL_TEXT_FONT;
+    NSString *text = @"美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军...";
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text];
+    [CommonTool makeString:text toAttributeString:string withString:text withLineSpacing:10.0];
+    _textView.attributedText = string;
     [self addSubview:_textView];
     
     

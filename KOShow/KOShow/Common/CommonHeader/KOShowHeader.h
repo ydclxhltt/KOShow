@@ -23,6 +23,8 @@
 #define HEADERVIEW_T_COLOR         RGB(53.0,54.0,55.0)
 //left_right_space
 #define SPACE                      5.0 * CURRENT_SCALE
+//ICON_LAYER_COLOR
+#define LAYER_COLOR                RGB(230.0, 230.0, 230.0)
 //主播列表 点播列表  字体
 #define MAIN_TEXT_COLOR            RGB(54.0, 55.0, 56.0)
 #define DETAIL_TEXT_COLOR          RGB(122.0, 123.0, 124.0)
@@ -36,6 +38,7 @@
 #define BUTTON_BAR_HEIGHT          44.0
 #define TOOL_BAR_HEIGHT            49.0
 #define BUTTON_BAR_COLOR           RGB(34.0,34.0,34.0)
+#define COMMENT_ROW_HEIGHT         60.0
 
 /*****播放器*****/
 #define SMALL_HEIGHT               225.0 * CURRENT_SCALE

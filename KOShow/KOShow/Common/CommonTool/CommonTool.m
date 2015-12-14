@@ -213,6 +213,16 @@
                              range:[textString rangeOfString:string]];
 }
 
++ (void)makeString:(NSString *)textString toAttributeString:(NSMutableAttributedString *)attributedString  withString:(NSString *)string withLineSpacing:(float)lineSpace
+{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = lineSpace;// 字体的行间距
+    NSDictionary *attributes = @{
+                                 NSParagraphStyleAttributeName:paragraphStyle
+                                 };
+    [attributedString addAttributes:attributes range:[textString rangeOfString:string]];
+}
+
 //时间
 + (NSString *)getUTCFormateDate:(NSString *)newsDate
 {

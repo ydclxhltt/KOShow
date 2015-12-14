@@ -125,6 +125,16 @@
 
 
 /*
+ *  多属性字符串
+ *
+ *  @pram   textString          全字符串
+ *  @pram   attributedString    多属性字符串
+ *  @pram   string              要改变的字符串
+ *  @pram   lineSpace           行间距
+ */
++ (void)makeString:(NSString *)textString toAttributeString:(NSMutableAttributedString *)attributedString  withString:(NSString *)string withLineSpacing:(float)lineSpace;
+
+/*
  *  对比字符串显示多少分钟前
  *
  *  @pram   newsDate  要对比的时间字符串
