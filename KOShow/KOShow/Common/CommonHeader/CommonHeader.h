@@ -25,7 +25,8 @@
 #define NO_NULL(string)         (string) ? string : @"";
 
 //主色调
-#define APP_MAIN_COLOR          RGB(227.0,128.0,29.0)
+//#define APP_MAIN_COLOR          RGB(227.0,128.0,29.0)
+#define APP_MAIN_COLOR          RGB(255.0,129.0,0.0)
 
 //起始高度
 #define START_HEIGHT            STATUS_BAR_HEIGHT + NAVBAR_HEIGHT

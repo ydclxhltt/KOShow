@@ -9,8 +9,8 @@
 #define SPACE_X             10.0
 #define SPACE_Y             5.0
 #define BG_COLOR            RGB(242.0,243.0,244.0)
-#define ICON_WH             29.0
-#define TEXTFIELD_HEIGHT    ICON_WH
+#define ICON_WH             30.0
+#define TEXTFIELD_HEIGHT    35.0
 
 #import "RoomToolBarView.h"
 
@@ -45,7 +45,7 @@
     float x = SPACE_X;
     float y = (self.frame.size.height - ICON_WH)/2;
     
-    _messageTextField = [CreateViewTool createTextFieldWithFrame:CGRectMake(x,y, textFieldWidth, TEXTFIELD_HEIGHT) textColor:[UIColor blackColor] textFont:FONT(15.0) placeholderText:@"请输入您想说的话...."];
+    _messageTextField = [CreateViewTool createTextFieldWithFrame:CGRectMake(x,(self.frame.size.height - TEXTFIELD_HEIGHT)/2, textFieldWidth, TEXTFIELD_HEIGHT) textColor:[UIColor blackColor] textFont:FONT(15.0) placeholderText:@"说点什么吧...."];
     _messageTextField.borderStyle = UITextBorderStyleRoundedRect ;
     _messageTextField.backgroundColor = [UIColor whiteColor];
     _messageTextField.delegate = self;
@@ -61,6 +61,12 @@
     {
         _giftButton = [CreateViewTool createButtonWithFrame:CGRectMake(x, y, ICON_WH, ICON_WH) buttonImage:@"icon_gift" selectorName:@"giftButtonPressed:" tagDelegate:self];
         [self addSubview:_giftButton];
+        
+        UIImageView *rightView = [CreateViewTool createImageViewWithFrame:CGRectMake(0, 0, TEXTFIELD_HEIGHT, TEXTFIELD_HEIGHT) placeholderImage:nil];
+        UIButton *faceButton = [CreateViewTool createButtonWithFrame:CGRectMake((rightView.frame.size.width - ICON_WH)/2, (rightView.frame.size.height - ICON_WH)/2, ICON_WH, ICON_WH) buttonImage:@"icon_face" selectorName:@"faceButtonPressed:" tagDelegate:self];
+        [rightView addSubview:faceButton];
+        _messageTextField.rightView = rightView;
+        _messageTextField.rightViewMode = UITextFieldViewModeAlways;
     }
 }
 

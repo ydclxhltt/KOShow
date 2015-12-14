@@ -31,6 +31,21 @@
     return self;
 }
 
+#pragma mark 设置弧度
+- (void)setRadius:(float)radius
+{
+    _radius = radius;
+    [CommonTool clipView:self withCornerRadius:radius];
+}
+
+#pragma mark 设置图层颜色
+- (void)setLayerColor:(UIColor *)layerColor
+{
+    _layerColor = layerColor;
+    [CommonTool setViewLayer:self withLayerColor:layerColor bordWidth:1.0];
+}
+
+
 #pragma mark 设置数据
 - (void)setItemTitleWithArray:(NSArray *)titleArray
 {
@@ -67,6 +82,7 @@
     }
 }
 
+#pragma mark 按钮响应事件
 - (void)buttonPressed:(UIButton *)sender
 {
     sender.selected = YES;

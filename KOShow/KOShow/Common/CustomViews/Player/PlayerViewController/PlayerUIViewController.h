@@ -22,6 +22,7 @@ typedef enum : NSUInteger {
 #define BUTTON_WIDTH    66.0
 #define BUTTON_HEIGHT   44.0
 #define SPACE_Y         10.0
+#define ICON_WH         15.0
 
 #import "BasicViewController.h"
 #import "PlayerBottomControlView.h"
@@ -41,6 +42,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UIView *liveSmallBottomView;                          //直播小下
 @property (nonatomic, strong) PlayerLiveFullBottomControlView *liveFullBottomView;  //直播大下
 @property (nonatomic, strong) RoomToolBarView *roomToolBarView;                     //直播大下
+@property (nonatomic, strong) UILabel *countLabel;                                  //点击人数
 
 @end
 

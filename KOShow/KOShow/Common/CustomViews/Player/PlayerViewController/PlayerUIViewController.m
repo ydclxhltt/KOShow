@@ -196,6 +196,16 @@
             }
             x += itemWidth;
         }
+        else
+        {
+            UIImageView *iconImageView = [CreateViewTool createImageViewWithFrame:CGRectMake(x, (itemHeight - ICON_WH)/2, ICON_WH, ICON_WH) placeholderImage:[UIImage imageNamed:@"icon_online_gray"]];
+            [self.downSideView addSubview:iconImageView];
+            
+            x = iconImageView.frame.origin.x + iconImageView.frame.size.width;
+            
+            _countLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, 0, itemWidth - (itemWidth - buttonWidth) - iconImageView.frame.size.width, BUTTON_BAR_HEIGHT) textString:@" 1234" textColor:DETAIL_TEXT_COLOR textFont:FONT(14.0)];
+            [self.downSideView addSubview:_countLabel];
+        }
         if (i != [imageArray count] - 1)
         {
             UIImageView *imageView = [CreateViewTool createImageViewWithFrame:CGRectMake(itemWidth * (i + 1), y + SPACE_Y, LINT_WIDTH, buttonHeight - 2 * (y + SPACE_Y)) placeholderImage:nil];

@@ -50,7 +50,7 @@
 {
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:frame];
     imageView.backgroundColor = [UIColor clearColor];
-     
+    //imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.userInteractionEnabled = YES;
     imageView.image = image;
     return imageView;

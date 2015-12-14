@@ -13,6 +13,8 @@
 @interface SegmentView : UIView
 
 @property (nonatomic, assign) id<SegmentViewDelegate> delegate;
+@property (nonatomic, assign) float radius;
+@property (nonatomic, strong) UIColor *layerColor;
 
 - (void)setItemTitleWithArray:(NSArray *)titleArray;
 

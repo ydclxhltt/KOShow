@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self addBackItem];
+    //[self addBackItem];
     [self initUI];
     [self loadWebView];
     // Do any additional setup after loading the view.
