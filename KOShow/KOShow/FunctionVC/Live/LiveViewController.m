@@ -106,7 +106,8 @@
     LiveRoomViewController *liveRoomViewController = [[LiveRoomViewController alloc] init];
     liveRoomViewController.playerViewType = PlayerViewTypeLive;
     liveRoomViewController.hidesBottomBarWhenPushed = YES;
-    [liveRoomViewController setVideoUrl:@"http://183.232.54.230:1935/vod/sycf/2015/11/17/yl1116lxcp01_zqbz.mp4/playlist.m3u8?sessionID=d9ffcbe9b9fa4bb5861612def1df6552"];
+    [liveRoomViewController setVideoUrl:@"http://182.18.61.8:1935/live/4869/playlist.m3u8"];
+    //@"http://183.232.54.230:1935/vod/sycf/2015/11/17/yl1116lxcp01_zqbz.mp4/playlist.m3u8?sessionID=d9ffcbe9b9fa4bb5861612def1df6552"
     [self.navigationController pushViewController:liveRoomViewController animated:YES];
 }
 

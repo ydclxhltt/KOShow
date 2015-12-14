@@ -12,7 +12,6 @@
 #define SPACE_Y             30.0 * CURRENT_SCALE
 #define LOGIN_BTN_HEIGHT    30.0 * CURRENT_SCALE
 #define LOGIN_BTN_WIDTH     85.0 * CURRENT_SCALE
-#define LAYER_COLOR         RGB(230.0, 230.0, 230.0)
 #define BTN_LAYER_COLOR     RGB(236.0, 187.0, 91.0)
 #define BTN_TITLE_N_COLOR   RGB(225.0, 129.0, 0.0)
 
