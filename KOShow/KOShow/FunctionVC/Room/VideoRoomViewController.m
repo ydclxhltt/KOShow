@@ -8,10 +8,11 @@
 #define ADD_Y               5.0
 #define HEADER_SPACE_X1     5.0
 #define HEADER_SPACE_X      15.0
-#define LABEL_HEIGHT        44.0
+#define LABEL_HEIGHT        35.0
 #define LABEL_WIDTH         200.0
-#define HEADER_HEIGHT       80.0
+#define HEADER_HEIGHT       70.0
 #define DETAIL_LINE_COLOR   RGB(233.0,233.0,233.0)
+#define COLLECT_BUTTON_WH   20.0
 
 #import "CommentListCell.h"
 #import "VideoRoomViewController.h"
@@ -133,8 +134,11 @@
     
     float y = 0;
     float x = HEADER_SPACE_X;
-    UILabel *nameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, headerView.frame.size.width, LABEL_HEIGHT) textString:@"视频名称" textColor:DETAIL_TEXT_COLOR textFont:FONT(14.0)];
+    UILabel *nameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, headerView.frame.size.width, LABEL_HEIGHT) textString:@"我的直播间之炉石传说" textColor:DETAIL_TEXT_COLOR textFont:FONT(14.0)];
     [headerView addSubview:nameLabel];
+    
+    UIButton *collectButton = [CreateViewTool createButtonWithFrame:CGRectMake(headerView.frame.size.width -  x - COLLECT_BUTTON_WH, (nameLabel.frame.size.height - COLLECT_BUTTON_WH)/2, COLLECT_BUTTON_WH, COLLECT_BUTTON_WH) buttonImage:@"icon_collect" selectorName:@"" tagDelegate:self];
+    [headerView addSubview:collectButton];
     
     y += nameLabel.frame.size.height;
     UIImageView *lineImageView = [CreateViewTool createImageViewWithFrame:CGRectMake(0, y, headerView.frame.size.width, 1.0) placeholderImage:nil];

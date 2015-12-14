@@ -6,19 +6,25 @@
 //  Copyright © 2015年 chenlei. All rights reserved.
 //
 
-#define ADD_Y           5.0
-#define SPACE_X         5.0
-#define ADD_X           15.0
-#define ADD_X1          10.0
-#define LABEL_HEIGHT    20.0
-#define LABEL_WIDTH     200.0
-#define R_LABEL_WIDTH   20.0
-#define R_LABEL_HEIGHT  20.0
-#define ICON_WIDTH      45.0
-#define ICON_HEIGHT     20.0
-#define ROW_HEIGHT      44.0
-#define CHAT_ROW_HEIGHT 20.0
-#define HEADER_HEIGHT   50.0
+#define ADD_Y               5.0
+#define SPACE_X             5.0
+#define ADD_X               15.0
+#define ADD_X1              10.0
+#define LABEL_HEIGHT        20.0
+#define LABEL_WIDTH         200.0
+#define R_LABEL_WIDTH       20.0
+#define R_LABEL_HEIGHT      20.0
+#define ICON_WIDTH          45.0
+#define ICON_HEIGHT         20.0
+#define ROW_HEIGHT          44.0
+#define CHAT_ROW_HEIGHT     20.0
+#define HEADER_HEIGHT       50.0
+//chat
+#define CHAT_HEADER_HEIGHT  35.0
+#define HEADER_SPACE_X      15.0
+#define LABEL_WIDTH         200.0
+#define DETAIL_LINE_COLOR   RGB(233.0,233.0,233.0)
+#define FOCUS_BUTTON_WH     20.0
 
 
 #import "LiveRoomViewController.h"
@@ -103,6 +109,7 @@
     _chatTableView.delegate = self;
     _chatTableView.backgroundColor = [UIColor clearColor];
     _chatTableView.tag = 1000;
+    _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.downSideView addSubview:_chatTableView];
 }
 
@@ -147,17 +154,37 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, HEADER_HEIGHT)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, (tableView == self.rankTableView) ? HEADER_HEIGHT : CHAT_HEADER_HEIGHT)];
     headerView.backgroundColor = [UIColor whiteColor];
-    UIImage *image = [UIImage imageNamed:@"rank_header"];
-    UIImageView *imageView = [CreateViewTool createImageViewWithFrame:CGRectMake((headerView.frame.size.width - image.size.width/3)/2, (headerView.frame.size.height - image.size.height/3)/2, image.size.width/3, image.size.height/3) placeholderImage:image];
-    [headerView addSubview:imageView];
+    if (tableView == self.rankTableView)
+    {
+        UIImage *image = [UIImage imageNamed:@"rank_header"];
+        UIImageView *imageView = [CreateViewTool createImageViewWithFrame:CGRectMake((headerView.frame.size.width - image.size.width/3)/2, (headerView.frame.size.height - image.size.height/3)/2, image.size.width/3, image.size.height/3) placeholderImage:image];
+        [headerView addSubview:imageView];
+    }
+    else if (tableView == self.chatTableView)
+    {
+        float y = 0;
+        float x = HEADER_SPACE_X;
+        UILabel *nameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, headerView.frame.size.width, headerView.frame.size.height) textString:@"炉石传说的直播间" textColor:DETAIL_TEXT_COLOR textFont:FONT(14.0)];
+        [headerView addSubview:nameLabel];
+        
+        UIButton *collectButton = [CreateViewTool createButtonWithFrame:CGRectMake(headerView.frame.size.width -  x - FOCUS_BUTTON_WH, (nameLabel.frame.size.height - FOCUS_BUTTON_WH)/2, FOCUS_BUTTON_WH, FOCUS_BUTTON_WH) buttonImage:@"icon_focus" selectorName:@"" tagDelegate:self];
+        [headerView addSubview:collectButton];
+        
+        y += nameLabel.frame.size.height;
+        UIImageView *lineImageView = [CreateViewTool createImageViewWithFrame:CGRectMake(0, y, headerView.frame.size.width, 1.0) placeholderImage:nil];
+        lineImageView.backgroundColor = DETAIL_LINE_COLOR;
+        [headerView addSubview:lineImageView];
+
+    }
+    
     return headerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return (tableView == self.rankTableView) ? HEADER_HEIGHT : 0.0;
+    return (tableView == self.rankTableView) ? HEADER_HEIGHT : CHAT_HEADER_HEIGHT;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -172,9 +199,16 @@
         {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID1];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.imageView.transform = CGAffineTransformScale(cell.imageView.transform, .5, .5);
         }
         
-        cell.textLabel.text = @"1";
+        cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"level%d",((int)indexPath.row + 1) % 5 + 1 ]];
+        cell.textLabel.font = FONT(12.0);
+        NSString *text = @"我是观众: 这个直播间太精彩了";
+        NSMutableAttributedString *textString = [[NSMutableAttributedString alloc] initWithString:text];
+        [CommonTool makeString:text toAttributeString:textString withString:@"我是观众:" withTextColor:DETAIL_TEXT_COLOR withTextFont:FONT(12.0)];
+        [CommonTool makeString:text toAttributeString:textString withString:@"这个直播间太精彩了" withTextColor:MAIN_TEXT_COLOR withTextFont:FONT(12.0)];
+        cell.textLabel.attributedText = textString;
     }
     if (tableView == self.rankTableView)
     {

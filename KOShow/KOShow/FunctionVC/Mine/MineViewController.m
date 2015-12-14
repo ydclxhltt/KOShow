@@ -16,6 +16,9 @@
 #define BTN_TITLE_N_COLOR   RGB(225.0, 129.0, 0.0)
 
 #import "MineViewController.h"
+#import "MySaveViewController.h"
+#import "BookMarkViewController.h"
+#import "SettingViewController.h"
 
 @interface MineViewController ()
 
@@ -123,6 +126,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UIViewController *viewController;
+    if (indexPath.section == 0)
+    {
+        if (indexPath.row == 0)
+        {
+            viewController = [[BookMarkViewController alloc] init];
+        }
+        if (indexPath.row == 1)
+        {
+            viewController = [[MySaveViewController alloc] init];
+        }
+    }
+    else if (indexPath.section == 1)
+    {
+        viewController = [[SettingViewController alloc] init];
+    }
+    viewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 

@@ -23,7 +23,7 @@
 #import "HeaderViewCell.h"
 #import "AnchorListCell.h"
 #import "VideoListCell.h"
-#import "AvPlayerViewController.h"
+#import "VideoRoomViewController.h"
 
 @interface IndexViewController ()<UITableViewDataSource,UITableViewDelegate,AdvViewClickedDelegate>
 
@@ -177,11 +177,11 @@
 #pragma mark 点击进入房间
 - (void)clickButtonPressed:(UIButton *)sender
 {
-    AvPlayerViewController *avPlayerViewController = [[AvPlayerViewController alloc] init];
-    avPlayerViewController.playerViewType = PlayerViewTypeVideo;
-    avPlayerViewController.hidesBottomBarWhenPushed = YES;
-    [avPlayerViewController setVideoUrl:@"http://183.232.54.230:1935/vod/sycf/2015/11/17/yl1116lxcp01_zqbz.mp4/playlist.m3u8?sessionID=d9ffcbe9b9fa4bb5861612def1df6552"];
-    [self.navigationController pushViewController:avPlayerViewController animated:YES];
+    VideoRoomViewController *videoRoomViewController = [[VideoRoomViewController alloc] init];
+    videoRoomViewController.playerViewType = PlayerViewTypeVideo;
+    videoRoomViewController.hidesBottomBarWhenPushed = YES;
+    [videoRoomViewController setVideoUrl:@"http://183.232.54.230:1935/vod/sycf/2015/11/17/yl1116lxcp01_zqbz.mp4/playlist.m3u8?sessionID=d9ffcbe9b9fa4bb5861612def1df6552"];
+    [self.navigationController pushViewController:videoRoomViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
