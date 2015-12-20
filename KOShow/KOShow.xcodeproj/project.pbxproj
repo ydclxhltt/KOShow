@@ -54,6 +54,10 @@
 		CE4E458D1C1DCC1500BE5D1E /* icon_gift_up.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4E458B1C1DCC1500BE5D1E /* icon_gift_up.png */; };
 		CE4E458E1C1DCC1500BE5D1E /* icon_share_up.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4E458C1C1DCC1500BE5D1E /* icon_share_up.png */; };
 		CE4E45901C1DD3C000BE5D1E /* icon_face_up.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4E458F1C1DD3C000BE5D1E /* icon_face_up.png */; };
+		CE5397221C24493E00023017 /* KOShowSocketTool.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5397211C24493E00023017 /* KOShowSocketTool.m */; };
+		CE53972A1C245C4900023017 /* BasicMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5397251C245C4900023017 /* BasicMessage.m */; };
+		CE53972B1C245C4900023017 /* MessageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5397271C245C4900023017 /* MessageUtil.m */; };
+		CE53972C1C245C4900023017 /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5397291C245C4900023017 /* SocketManager.m */; };
 		CE6DB9B71C19C2EE00C88B97 /* CommentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6DB9B61C19C2EE00C88B97 /* CommentListCell.m */; };
 		CE8353A01C060E160099042D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83539F1C060E160099042D /* main.m */; };
 		CE8353A31C060E160099042D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8353A21C060E160099042D /* AppDelegate.m */; };
@@ -134,6 +138,7 @@
 		CEA6169B1C15E3DA002F72E9 /* pause_up.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA616951C15E3DA002F72E9 /* pause_up.png */; };
 		CEA6169D1C15E3DA002F72E9 /* play_up.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA616971C15E3DA002F72E9 /* play_up.png */; };
 		CEA6169F1C15E3DA002F72E9 /* refresh_up.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA616991C15E3DA002F72E9 /* refresh_up.png */; };
+		CEB63C921C21B001004D0858 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB63C911C21B001004D0858 /* AsyncSocket.m */; };
 		CED255B41C13D92F007A9F0C /* AvVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CED255B31C13D92F007A9F0C /* AvVideoView.m */; };
 		CED255BA1C13D958007A9F0C /* AvPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED255B71C13D958007A9F0C /* AvPlayerViewController.m */; };
 		CED255BB1C13D958007A9F0C /* PlayerUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED255B91C13D958007A9F0C /* PlayerUIViewController.m */; };
@@ -165,6 +170,22 @@
 		CEF57EC21C1745C800AE4846 /* level4.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF57EBD1C1745C800AE4846 /* level4.png */; };
 		CEF57EC31C1745C800AE4846 /* level5.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF57EBE1C1745C800AE4846 /* level5.png */; };
 		CEF57EC51C17495000AE4846 /* rank_header.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF57EC41C17495000AE4846 /* rank_header.png */; };
+		CEF98A201C2060A6004A972F /* BarrageCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF989FF1C2060A6004A972F /* BarrageCanvas.m */; };
+		CEF98A211C2060A6004A972F /* BarrageClock.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A011C2060A6004A972F /* BarrageClock.m */; };
+		CEF98A221C2060A6004A972F /* BarrageDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A031C2060A6004A972F /* BarrageDescriptor.m */; };
+		CEF98A231C2060A6004A972F /* BarrageDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A051C2060A6004A972F /* BarrageDispatcher.m */; };
+		CEF98A241C2060A6004A972F /* BarrageRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A071C2060A6004A972F /* BarrageRenderer.m */; };
+		CEF98A251C2060A6004A972F /* BarrageSpriteFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A091C2060A6004A972F /* BarrageSpriteFactory.m */; };
+		CEF98A261C2060A6004A972F /* BarrageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A0D1C2060A6004A972F /* BarrageLoader.m */; };
+		CEF98A271C2060A6004A972F /* BarrageFloatImageSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A101C2060A6004A972F /* BarrageFloatImageSprite.m */; };
+		CEF98A281C2060A6004A972F /* BarrageFloatSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A121C2060A6004A972F /* BarrageFloatSprite.m */; };
+		CEF98A291C2060A6004A972F /* BarrageFloatTextSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A141C2060A6004A972F /* BarrageFloatTextSprite.m */; };
+		CEF98A2A1C2060A6004A972F /* BarrageSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A161C2060A6004A972F /* BarrageSprite.m */; };
+		CEF98A2B1C2060A6004A972F /* BarrageSpriteUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A191C2060A6004A972F /* BarrageSpriteUtility.m */; };
+		CEF98A2C1C2060A6004A972F /* BarrageWalkImageSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A1B1C2060A6004A972F /* BarrageWalkImageSprite.m */; };
+		CEF98A2D1C2060A6004A972F /* BarrageWalkSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A1D1C2060A6004A972F /* BarrageWalkSprite.m */; };
+		CEF98A2E1C2060A6004A972F /* BarrageWalkTextSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A1F1C2060A6004A972F /* BarrageWalkTextSprite.m */; };
+		CEF98A311C20682F004A972F /* UIImage+Barrage.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A301C20682F004A972F /* UIImage+Barrage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -221,9 +242,17 @@
 		CE4E458B1C1DCC1500BE5D1E /* icon_gift_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_gift_up.png; sourceTree = "<group>"; };
 		CE4E458C1C1DCC1500BE5D1E /* icon_share_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_share_up.png; sourceTree = "<group>"; };
 		CE4E458F1C1DD3C000BE5D1E /* icon_face_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_face_up.png; sourceTree = "<group>"; };
+		CE5397201C24493E00023017 /* KOShowSocketTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KOShowSocketTool.h; sourceTree = "<group>"; };
+		CE5397211C24493E00023017 /* KOShowSocketTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOShowSocketTool.m; sourceTree = "<group>"; };
+		CE5397241C245C4900023017 /* BasicMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicMessage.h; sourceTree = "<group>"; };
+		CE5397251C245C4900023017 /* BasicMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicMessage.m; sourceTree = "<group>"; };
+		CE5397261C245C4900023017 /* MessageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageUtil.h; sourceTree = "<group>"; };
+		CE5397271C245C4900023017 /* MessageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageUtil.m; sourceTree = "<group>"; };
+		CE5397281C245C4900023017 /* SocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
+		CE5397291C245C4900023017 /* SocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
 		CE6DB9B51C19C2EE00C88B97 /* CommentListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentListCell.h; sourceTree = "<group>"; };
 		CE6DB9B61C19C2EE00C88B97 /* CommentListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentListCell.m; sourceTree = "<group>"; };
-		CE83539B1C060E160099042D /* KOShow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KOShow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE83539B1C060E160099042D /* 空中直播.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "空中直播.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE83539F1C060E160099042D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CE8353A11C060E160099042D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CE8353A21C060E160099042D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -365,6 +394,8 @@
 		CEA616951C15E3DA002F72E9 /* pause_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_up.png; sourceTree = "<group>"; };
 		CEA616971C15E3DA002F72E9 /* play_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_up.png; sourceTree = "<group>"; };
 		CEA616991C15E3DA002F72E9 /* refresh_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh_up.png; sourceTree = "<group>"; };
+		CEB63C901C21B001004D0858 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		CEB63C911C21B001004D0858 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		CED255B21C13D92F007A9F0C /* AvVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvVideoView.h; sourceTree = "<group>"; };
 		CED255B31C13D92F007A9F0C /* AvVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvVideoView.m; sourceTree = "<group>"; };
 		CED255B61C13D958007A9F0C /* AvPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvPlayerViewController.h; sourceTree = "<group>"; };
@@ -405,6 +436,40 @@
 		CEF57EBD1C1745C800AE4846 /* level4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level4.png; sourceTree = "<group>"; };
 		CEF57EBE1C1745C800AE4846 /* level5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level5.png; sourceTree = "<group>"; };
 		CEF57EC41C17495000AE4846 /* rank_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rank_header.png; sourceTree = "<group>"; };
+		CEF989FE1C2060A6004A972F /* BarrageCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageCanvas.h; sourceTree = "<group>"; };
+		CEF989FF1C2060A6004A972F /* BarrageCanvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageCanvas.m; sourceTree = "<group>"; };
+		CEF98A001C2060A6004A972F /* BarrageClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageClock.h; sourceTree = "<group>"; };
+		CEF98A011C2060A6004A972F /* BarrageClock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageClock.m; sourceTree = "<group>"; };
+		CEF98A021C2060A6004A972F /* BarrageDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageDescriptor.h; sourceTree = "<group>"; };
+		CEF98A031C2060A6004A972F /* BarrageDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageDescriptor.m; sourceTree = "<group>"; };
+		CEF98A041C2060A6004A972F /* BarrageDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageDispatcher.h; sourceTree = "<group>"; };
+		CEF98A051C2060A6004A972F /* BarrageDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageDispatcher.m; sourceTree = "<group>"; };
+		CEF98A061C2060A6004A972F /* BarrageRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageRenderer.h; sourceTree = "<group>"; };
+		CEF98A071C2060A6004A972F /* BarrageRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageRenderer.m; sourceTree = "<group>"; };
+		CEF98A081C2060A6004A972F /* BarrageSpriteFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageSpriteFactory.h; sourceTree = "<group>"; };
+		CEF98A091C2060A6004A972F /* BarrageSpriteFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageSpriteFactory.m; sourceTree = "<group>"; };
+		CEF98A0A1C2060A6004A972F /* BarrageHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageHeader.h; sourceTree = "<group>"; };
+		CEF98A0C1C2060A6004A972F /* BarrageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageLoader.h; sourceTree = "<group>"; };
+		CEF98A0D1C2060A6004A972F /* BarrageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageLoader.m; sourceTree = "<group>"; };
+		CEF98A0F1C2060A6004A972F /* BarrageFloatImageSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageFloatImageSprite.h; sourceTree = "<group>"; };
+		CEF98A101C2060A6004A972F /* BarrageFloatImageSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageFloatImageSprite.m; sourceTree = "<group>"; };
+		CEF98A111C2060A6004A972F /* BarrageFloatSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageFloatSprite.h; sourceTree = "<group>"; };
+		CEF98A121C2060A6004A972F /* BarrageFloatSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageFloatSprite.m; sourceTree = "<group>"; };
+		CEF98A131C2060A6004A972F /* BarrageFloatTextSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageFloatTextSprite.h; sourceTree = "<group>"; };
+		CEF98A141C2060A6004A972F /* BarrageFloatTextSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageFloatTextSprite.m; sourceTree = "<group>"; };
+		CEF98A151C2060A6004A972F /* BarrageSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageSprite.h; sourceTree = "<group>"; };
+		CEF98A161C2060A6004A972F /* BarrageSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageSprite.m; sourceTree = "<group>"; };
+		CEF98A171C2060A6004A972F /* BarrageSpriteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageSpriteProtocol.h; sourceTree = "<group>"; };
+		CEF98A181C2060A6004A972F /* BarrageSpriteUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageSpriteUtility.h; sourceTree = "<group>"; };
+		CEF98A191C2060A6004A972F /* BarrageSpriteUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageSpriteUtility.m; sourceTree = "<group>"; };
+		CEF98A1A1C2060A6004A972F /* BarrageWalkImageSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageWalkImageSprite.h; sourceTree = "<group>"; };
+		CEF98A1B1C2060A6004A972F /* BarrageWalkImageSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageWalkImageSprite.m; sourceTree = "<group>"; };
+		CEF98A1C1C2060A6004A972F /* BarrageWalkSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageWalkSprite.h; sourceTree = "<group>"; };
+		CEF98A1D1C2060A6004A972F /* BarrageWalkSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageWalkSprite.m; sourceTree = "<group>"; };
+		CEF98A1E1C2060A6004A972F /* BarrageWalkTextSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageWalkTextSprite.h; sourceTree = "<group>"; };
+		CEF98A1F1C2060A6004A972F /* BarrageWalkTextSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageWalkTextSprite.m; sourceTree = "<group>"; };
+		CEF98A2F1C20682F004A972F /* UIImage+Barrage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Barrage.h"; sourceTree = "<group>"; };
+		CEF98A301C20682F004A972F /* UIImage+Barrage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Barrage.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -536,6 +601,19 @@
 			path = tabbar_icon;
 			sourceTree = "<group>";
 		};
+		CE5397231C245C4900023017 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				CE5397241C245C4900023017 /* BasicMessage.h */,
+				CE5397251C245C4900023017 /* BasicMessage.m */,
+				CE5397261C245C4900023017 /* MessageUtil.h */,
+				CE5397271C245C4900023017 /* MessageUtil.m */,
+				CE5397281C245C4900023017 /* SocketManager.h */,
+				CE5397291C245C4900023017 /* SocketManager.m */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		CE8353921C060E160099042D = {
 			isa = PBXGroup;
 			children = (
@@ -547,7 +625,7 @@
 		CE83539C1C060E160099042D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CE83539B1C060E160099042D /* KOShow.app */,
+				CE83539B1C060E160099042D /* 空中直播.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -622,6 +700,7 @@
 				CE8353C31C06146E0099042D /* CreateViewTool.m */,
 				CE8353C41C06146E0099042D /* DownLoadImageTool */,
 				CE8353E71C06146E0099042D /* RequestTool */,
+				CEB63C7C1C214375004D0858 /* ScoketTool */,
 			);
 			path = CommonTool;
 			sourceTree = "<group>";
@@ -862,6 +941,7 @@
 		CE9FCA611C06F8A60036D77E /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				CEF989FC1C2060A6004A972F /* BarrageRenderer */,
 				CEF57EC61C174FE600AE4846 /* AnchorDetailView */,
 				CEF57EB61C172DBC00AE4846 /* GiftView */,
 				CEF57EB21C16F17A00AE4846 /* RoomToolBarView */,
@@ -916,6 +996,26 @@
 				CE9FCA7F1C07592D0036D77E /* AnchorListView.m */,
 			);
 			path = AnchorView;
+			sourceTree = "<group>";
+		};
+		CEB63C7C1C214375004D0858 /* ScoketTool */ = {
+			isa = PBXGroup;
+			children = (
+				CEB63C7D1C214375004D0858 /* AsyncSocket */,
+				CE5397231C245C4900023017 /* Message */,
+				CE5397201C24493E00023017 /* KOShowSocketTool.h */,
+				CE5397211C24493E00023017 /* KOShowSocketTool.m */,
+			);
+			path = ScoketTool;
+			sourceTree = "<group>";
+		};
+		CEB63C7D1C214375004D0858 /* AsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				CEB63C901C21B001004D0858 /* AsyncSocket.h */,
+				CEB63C911C21B001004D0858 /* AsyncSocket.m */,
+			);
+			path = AsyncSocket;
 			sourceTree = "<group>";
 		};
 		CED255B11C13D92F007A9F0C /* PlayerView */ = {
@@ -1007,6 +1107,71 @@
 			path = AnchorDetailView;
 			sourceTree = "<group>";
 		};
+		CEF989FC1C2060A6004A972F /* BarrageRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				CEF98A2F1C20682F004A972F /* UIImage+Barrage.h */,
+				CEF98A301C20682F004A972F /* UIImage+Barrage.m */,
+				CEF989FD1C2060A6004A972F /* BarrageEngine */,
+				CEF98A0A1C2060A6004A972F /* BarrageHeader.h */,
+				CEF98A0B1C2060A6004A972F /* BarrageLoader */,
+				CEF98A0E1C2060A6004A972F /* BarrageSpirit */,
+			);
+			path = BarrageRenderer;
+			sourceTree = "<group>";
+		};
+		CEF989FD1C2060A6004A972F /* BarrageEngine */ = {
+			isa = PBXGroup;
+			children = (
+				CEF989FE1C2060A6004A972F /* BarrageCanvas.h */,
+				CEF989FF1C2060A6004A972F /* BarrageCanvas.m */,
+				CEF98A001C2060A6004A972F /* BarrageClock.h */,
+				CEF98A011C2060A6004A972F /* BarrageClock.m */,
+				CEF98A021C2060A6004A972F /* BarrageDescriptor.h */,
+				CEF98A031C2060A6004A972F /* BarrageDescriptor.m */,
+				CEF98A041C2060A6004A972F /* BarrageDispatcher.h */,
+				CEF98A051C2060A6004A972F /* BarrageDispatcher.m */,
+				CEF98A061C2060A6004A972F /* BarrageRenderer.h */,
+				CEF98A071C2060A6004A972F /* BarrageRenderer.m */,
+				CEF98A081C2060A6004A972F /* BarrageSpriteFactory.h */,
+				CEF98A091C2060A6004A972F /* BarrageSpriteFactory.m */,
+			);
+			path = BarrageEngine;
+			sourceTree = "<group>";
+		};
+		CEF98A0B1C2060A6004A972F /* BarrageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				CEF98A0C1C2060A6004A972F /* BarrageLoader.h */,
+				CEF98A0D1C2060A6004A972F /* BarrageLoader.m */,
+			);
+			path = BarrageLoader;
+			sourceTree = "<group>";
+		};
+		CEF98A0E1C2060A6004A972F /* BarrageSpirit */ = {
+			isa = PBXGroup;
+			children = (
+				CEF98A0F1C2060A6004A972F /* BarrageFloatImageSprite.h */,
+				CEF98A101C2060A6004A972F /* BarrageFloatImageSprite.m */,
+				CEF98A111C2060A6004A972F /* BarrageFloatSprite.h */,
+				CEF98A121C2060A6004A972F /* BarrageFloatSprite.m */,
+				CEF98A131C2060A6004A972F /* BarrageFloatTextSprite.h */,
+				CEF98A141C2060A6004A972F /* BarrageFloatTextSprite.m */,
+				CEF98A151C2060A6004A972F /* BarrageSprite.h */,
+				CEF98A161C2060A6004A972F /* BarrageSprite.m */,
+				CEF98A171C2060A6004A972F /* BarrageSpriteProtocol.h */,
+				CEF98A181C2060A6004A972F /* BarrageSpriteUtility.h */,
+				CEF98A191C2060A6004A972F /* BarrageSpriteUtility.m */,
+				CEF98A1A1C2060A6004A972F /* BarrageWalkImageSprite.h */,
+				CEF98A1B1C2060A6004A972F /* BarrageWalkImageSprite.m */,
+				CEF98A1C1C2060A6004A972F /* BarrageWalkSprite.h */,
+				CEF98A1D1C2060A6004A972F /* BarrageWalkSprite.m */,
+				CEF98A1E1C2060A6004A972F /* BarrageWalkTextSprite.h */,
+				CEF98A1F1C2060A6004A972F /* BarrageWalkTextSprite.m */,
+			);
+			path = BarrageSpirit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1024,7 +1189,7 @@
 			);
 			name = KOShow;
 			productName = KOShow;
-			productReference = CE83539B1C060E160099042D /* KOShow.app */;
+			productReference = CE83539B1C060E160099042D /* 空中直播.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1167,11 +1332,13 @@
 				CE8BE0CA1C1EEA15009E9270 /* AboutUsViewController.m in Sources */,
 				CE9FCA801C07592D0036D77E /* AnchorListView.m in Sources */,
 				CE83543A1C06146E0099042D /* UIProgressView+AFNetworking.m in Sources */,
+				CEF98A2D1C2060A6004A972F /* BarrageWalkSprite.m in Sources */,
 				CE8354301C06146E0099042D /* AFURLConnectionOperation.m in Sources */,
 				CE83543D1C06146E0099042D /* UpLoadPhotoTool.m in Sources */,
 				CE8354261C06146E0099042D /* UIImage+GIF.m in Sources */,
 				CED255B41C13D92F007A9F0C /* AvVideoView.m in Sources */,
 				CE8354381C06146E0099042D /* UIButton+AFNetworking.m in Sources */,
+				CEF98A2C1C2060A6004A972F /* BarrageWalkImageSprite.m in Sources */,
 				CE8354291C06146E0099042D /* THProgressView.m in Sources */,
 				CE83542B1C06146E0099042D /* AFHTTPRequestOperation.m in Sources */,
 				CE8354321C06146E0099042D /* AFURLResponseSerialization.m in Sources */,
@@ -1182,7 +1349,9 @@
 				CE8354371C06146E0099042D /* UIAlertView+AFNetworking.m in Sources */,
 				CE8354431C0617D30099042D /* LiveViewController.m in Sources */,
 				CE83543C1C06146E0099042D /* UIWebView+AFNetworking.m in Sources */,
+				CEB63C921C21B001004D0858 /* AsyncSocket.m in Sources */,
 				CE142C1D1C084A4500C74621 /* VideoView.m in Sources */,
+				CEF98A281C2060A6004A972F /* BarrageFloatSprite.m in Sources */,
 				CEDDCEF21C12C610004C43AA /* VideoRoomViewController.m in Sources */,
 				CE8354241C06146E0099042D /* SDWebImagePrefetcher.m in Sources */,
 				CE8354391C06146E0099042D /* UIImageView+AFNetworking.m in Sources */,
@@ -1192,6 +1361,10 @@
 				CE298C441C099AB7004CB6B4 /* SegmentView.m in Sources */,
 				CE83542F1C06146E0099042D /* AFSecurityPolicy.m in Sources */,
 				CE9FCA791C0748C70036D77E /* HeaderViewCell.m in Sources */,
+				CE53972B1C245C4900023017 /* MessageUtil.m in Sources */,
+				CEF98A201C2060A6004A972F /* BarrageCanvas.m in Sources */,
+				CEF98A271C2060A6004A972F /* BarrageFloatImageSprite.m in Sources */,
+				CEF98A2B1C2060A6004A972F /* BarrageSpriteUtility.m in Sources */,
 				CE8354331C06146E0099042D /* AFURLSessionManager.m in Sources */,
 				CE83542A1C06146E0099042D /* UIImageView+LK.m in Sources */,
 				CE83543B1C06146E0099042D /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -1201,9 +1374,12 @@
 				CED255BA1C13D958007A9F0C /* AvPlayerViewController.m in Sources */,
 				CE23589C1C1039C500D2A26C /* PlayerBottomControlView.m in Sources */,
 				CE6DB9B71C19C2EE00C88B97 /* CommentListCell.m in Sources */,
+				CEF98A291C2060A6004A972F /* BarrageFloatTextSprite.m in Sources */,
 				CE8354181C06146E0099042D /* BasicViewController.m in Sources */,
 				CEF57EB51C17023100AE4846 /* RoomToolBarView.m in Sources */,
+				CEF98A211C2060A6004A972F /* BarrageClock.m in Sources */,
 				CE83542D1C06146E0099042D /* AFHTTPSessionManager.m in Sources */,
+				CEF98A231C2060A6004A972F /* BarrageDispatcher.m in Sources */,
 				CEA616871C15DA26002F72E9 /* PlayerLiveFullBottomControlView.m in Sources */,
 				CE8BE0B61C1EC136009E9270 /* MySaveViewController.m in Sources */,
 				CE9FCA651C06F8E00036D77E /* AdvView.m in Sources */,
@@ -1211,6 +1387,7 @@
 				CE8354461C0617E00099042D /* MineViewController.m in Sources */,
 				CEF57EB91C172E0300AE4846 /* GiftListView.m in Sources */,
 				CE8354221C06146E0099042D /* SDWebImageDownloaderOperation.m in Sources */,
+				CEF98A261C2060A6004A972F /* BarrageLoader.m in Sources */,
 				CE83542E1C06146E0099042D /* AFNetworkReachabilityManager.m in Sources */,
 				CE8354201C06146E0099042D /* SDWebImageDecoder.m in Sources */,
 				CE9FCA7C1C0758560036D77E /* AnchorListCell.m in Sources */,
@@ -1220,18 +1397,27 @@
 				CED255D41C14A403007A9F0C /* PlayerFullTopControlView.m in Sources */,
 				CE83541C1C06146E0099042D /* NSData+GIF.m in Sources */,
 				CE83541D1C06146E0099042D /* NSData+ImageContentType.m in Sources */,
+				CE5397221C24493E00023017 /* KOShowSocketTool.m in Sources */,
 				CE8BE0C71C1EDA18009E9270 /* SettingViewController.m in Sources */,
 				CE298C381C0986D2004CB6B4 /* VideoListCell.m in Sources */,
 				CE8354211C06146E0099042D /* SDWebImageDownloader.m in Sources */,
 				CE14E8291C0C3CD30084818E /* CaptchaView.m in Sources */,
+				CE53972A1C245C4900023017 /* BasicMessage.m in Sources */,
 				CE8354351C06146E0099042D /* AFNetworkActivityIndicatorManager.m in Sources */,
+				CEF98A2A1C2060A6004A972F /* BarrageSprite.m in Sources */,
+				CE53972C1C245C4900023017 /* SocketManager.m in Sources */,
 				CED255BB1C13D958007A9F0C /* PlayerUIViewController.m in Sources */,
 				CE8353A31C060E160099042D /* AppDelegate.m in Sources */,
+				CEF98A241C2060A6004A972F /* BarrageRenderer.m in Sources */,
 				CE83541A1C06146E0099042D /* CommonTool.m in Sources */,
 				CE83541B1C06146E0099042D /* CreateViewTool.m in Sources */,
 				CE8354231C06146E0099042D /* SDWebImageManager.m in Sources */,
+				CEF98A221C2060A6004A972F /* BarrageDescriptor.m in Sources */,
+				CEF98A251C2060A6004A972F /* BarrageSpriteFactory.m in Sources */,
 				CE8353A01C060E160099042D /* main.m in Sources */,
 				CE0675A31C17E867008BA400 /* AnchorDetailView.m in Sources */,
+				CEF98A2E1C2060A6004A972F /* BarrageWalkTextSprite.m in Sources */,
+				CEF98A311C20682F004A972F /* UIImage+Barrage.m in Sources */,
 				CE83541E1C06146E0099042D /* SDImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1340,9 +1526,9 @@
 				INFOPLIST_FILE = KOShow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.smallpig.yjk;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "74961059-0641-40d6-a464-6d3ad825bb48";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kongzhong.live;
+				PRODUCT_NAME = "空中直播";
+				PROVISIONING_PROFILE = "89ea6f1f-726f-4bbd-ae79-e6833b919725";
 				SDKROOT = iphoneos9.2;
 			};
 			name = Debug;
@@ -1357,9 +1543,9 @@
 				INFOPLIST_FILE = KOShow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.smallpig.yjk;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "74961059-0641-40d6-a464-6d3ad825bb48";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kongzhong.live;
+				PRODUCT_NAME = "空中直播";
+				PROVISIONING_PROFILE = "89ea6f1f-726f-4bbd-ae79-e6833b919725";
 				SDKROOT = iphoneos9.2;
 			};
 			name = Release;
