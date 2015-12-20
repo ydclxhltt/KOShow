@@ -30,6 +30,7 @@ typedef enum : NSUInteger {
 #import "PlayerLiveFullBottomControlView.h"
 #import "RoomToolBarView.h"
 
+
 @interface PlayerUIViewController : BasicViewController<PlayerFullTopControlViewDelegate,PlayerBottomControlViewDelegate,PlayerLiveFullBottomControlViewDelegate>
 
 @property (nonatomic, assign) PlayerViewType playerViewType;
@@ -43,6 +44,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) PlayerLiveFullBottomControlView *liveFullBottomView;  //直播大下
 @property (nonatomic, strong) RoomToolBarView *roomToolBarView;                     //直播大下
 @property (nonatomic, strong) UILabel *countLabel;                                  //点击人数
+
 
 @end
 

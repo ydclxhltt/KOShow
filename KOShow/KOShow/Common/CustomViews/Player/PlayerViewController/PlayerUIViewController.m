@@ -254,6 +254,7 @@
                     [self.videoBottomControlView setHidden:!self.videoBottomControlView.isHidden];
                 }
                 [self.topSmallView setHidden:!self.topSmallView.isHidden];
+                [[UIApplication sharedApplication] setStatusBarHidden:!([UIApplication sharedApplication].statusBarHidden) withAnimation:UIStatusBarAnimationFade];
             }
         }
         else
@@ -265,6 +266,7 @@
                     [self.liveSmallBottomView setHidden:!self.liveSmallBottomView.isHidden];
                 }
                 [self.topSmallView setHidden:!self.topSmallView.isHidden];
+                [[UIApplication sharedApplication] setStatusBarHidden:!([UIApplication sharedApplication].statusBarHidden) withAnimation:UIStatusBarAnimationFade];
             }
 
         }
@@ -281,6 +283,7 @@
                     [self.videoBottomControlView setHidden:!self.videoBottomControlView.isHidden];
                 }
                 [self.fullTopControlView setHidden:!self.fullTopControlView.isHidden];
+                [[UIApplication sharedApplication] setStatusBarHidden:!([UIApplication sharedApplication].statusBarHidden) withAnimation:UIStatusBarAnimationFade];
             }
         }
         else
@@ -293,6 +296,7 @@
                     [self.liveFullBottomView setHidden:!self.liveFullBottomView.isHidden];
                 }
                 [self.fullTopControlView setHidden:!self.fullTopControlView.isHidden];
+                [[UIApplication sharedApplication] setStatusBarHidden:!([UIApplication sharedApplication].statusBarHidden) withAnimation:UIStatusBarAnimationFade];
             }
         }
     }

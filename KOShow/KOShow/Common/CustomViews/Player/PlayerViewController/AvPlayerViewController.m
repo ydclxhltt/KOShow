@@ -167,71 +167,6 @@
 }
 
 
-#pragma mark 设置方位
--(void)turnToPortraint
-{
-    [[UIApplication sharedApplication]setStatusBarOrientation:UIDeviceOrientationPortrait animated:YES];
-    [UIView animateWithDuration:0.5f animations:^{
-        self.view.transform = CGAffineTransformMakeRotation(0);
-        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        self.upSideView.frame = CGRectMake(0, 0, _originFrame.size.width,  _originFrame.size.height);
-        self.videoView.frame = CGRectMake(0, 0, _originFrame.size.width,  _originFrame.size.height);
-        if (self.videoBottomControlView)
-        {
-            self.videoBottomControlView.frame = CGRectMake(0, _originFrame.size.height - BOTTOM_HEIGHT, _originFrame.size.width, BOTTOM_HEIGHT);
-            [ self.videoBottomControlView resetFrame];
-        }
-        if (self.liveSmallBottomView)
-        {
-            self.liveSmallBottomView.hidden = NO;
-        }
-        if (self.liveFullBottomView)
-        {
-            [self.liveFullBottomView reSetFrame];
-            self.liveFullBottomView.hidden = YES;
-        }
-        self.topSmallView.hidden = NO;
-        self.fullTopControlView.hidden = YES;
-    }
-    completion:^(BOOL finished)
-     {
-
-    }];
-}
-
--(void)turnToLeft
-{
-    
-    [UIView animateWithDuration:0.5f animations:^{
-         CGRect frect = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
-        self.view.frame = frect;
-        self.view.center = CGPointMake(frect.size.height/2, frect.size.width/2);
-        self.upSideView.frame = CGRectMake(0, 0, frect.size.width,  frect.size.height);
-        self.videoView.frame = CGRectMake(0, 0, frect.size.width,  frect.size.height);
-        if (self.videoBottomControlView)
-        {
-            self.videoBottomControlView.frame = CGRectMake(0, frect.size.height - BOTTOM_HEIGHT, frect.size.width, BOTTOM_HEIGHT);
-            [ self.videoBottomControlView resetFrame];
-        }
-        if (self.liveSmallBottomView)
-        {
-            self.liveSmallBottomView.hidden = YES;
-        }
-        if (self.liveFullBottomView)
-        {
-            self.liveFullBottomView.hidden = NO;
-        }
-        self.topSmallView.hidden = YES;
-        self.fullTopControlView.hidden = NO;
-        self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
-    }
-    completion:^(BOOL finished)
-    {
-        
-    }];
-    [[UIApplication sharedApplication]setStatusBarOrientation:UIDeviceOrientationLandscapeLeft animated:YES];
-}
-
 
 #pragma mark 播放状态
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -336,6 +271,79 @@
    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
+#pragma mark 设置方位
+-(void)turnToPortraint
+{
+    [[UIApplication sharedApplication]setStatusBarOrientation:UIDeviceOrientationPortrait animated:YES];
+    [UIView animateWithDuration:0.5f animations:^{
+        self.view.transform = CGAffineTransformMakeRotation(0);
+        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.upSideView.frame = CGRectMake(0, 0, _originFrame.size.width,  _originFrame.size.height);
+        self.videoView.frame = CGRectMake(0, 0, _originFrame.size.width,  _originFrame.size.height);
+        if (self.videoBottomControlView)
+        {
+            self.videoBottomControlView.frame = CGRectMake(0, _originFrame.size.height - BOTTOM_HEIGHT, _originFrame.size.width, BOTTOM_HEIGHT);
+            [ self.videoBottomControlView resetFrame];
+        }
+        if (self.liveSmallBottomView)
+        {
+            self.liveSmallBottomView.hidden = NO;
+        }
+        if (self.liveFullBottomView)
+        {
+            [self.liveFullBottomView reSetFrame];
+            self.liveFullBottomView.hidden = YES;
+        }
+        self.topSmallView.hidden = NO;
+        self.fullTopControlView.hidden = YES;
+    }
+    completion:^(BOOL finished)
+    {
+         [self setBarrageRendererView];
+    }];
+    
+}
+
+-(void)turnToLeft
+{
+    [UIView animateWithDuration:0.5f animations:^{
+        CGRect frect = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+        self.view.frame = frect;
+        self.view.center = CGPointMake(frect.size.height/2, frect.size.width/2);
+        self.upSideView.frame = CGRectMake(0, 0, frect.size.width,  frect.size.height);
+        self.videoView.frame = CGRectMake(0, 0, frect.size.width,  frect.size.height);
+        if (self.videoBottomControlView)
+        {
+            self.videoBottomControlView.frame = CGRectMake(0, frect.size.height - BOTTOM_HEIGHT, frect.size.width, BOTTOM_HEIGHT);
+            [ self.videoBottomControlView resetFrame];
+        }
+        if (self.liveSmallBottomView)
+        {
+            self.liveSmallBottomView.hidden = YES;
+        }
+        if (self.liveFullBottomView)
+        {
+            self.liveFullBottomView.hidden = NO;
+        }
+        self.topSmallView.hidden = YES;
+        self.fullTopControlView.hidden = NO;
+        self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
+    }
+    completion:^(BOOL finished)
+     {
+         [self setBarrageRendererView];
+     }];
+    [[UIApplication sharedApplication]setStatusBarOrientation:UIDeviceOrientationLandscapeLeft animated:YES];
+}
+
+
+
+#pragma mark 设置弹幕
+- (void)setBarrageRendererView
+{
+    
+}
+
 #pragma mark 进度
 - (void)playerBottomControlViewSlider:(UISlider *)sender ValueChanged:(NSTimeInterval)interval isFinished:(BOOL)isFinish
 {
@@ -366,6 +374,8 @@
 {
     //[self setVideoUrl:self.videoUrl];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

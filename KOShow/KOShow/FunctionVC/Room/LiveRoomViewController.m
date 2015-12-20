@@ -29,12 +29,21 @@
 
 #import "LiveRoomViewController.h"
 #import "AnchorDetailView.h"
+#import "BarrageHeader.h"
+#import "BarrageSpriteUtility.h"
+#import "UIImage+Barrage.h"
+#import "KOShowSocketTool.h"
 
 @interface LiveRoomViewController()<UITableViewDataSource,UITableViewDelegate>
-
+{
+    NSTimer * timer;
+    NSInteger count;
+    KOShowSocketTool *socketTool;
+}
 @property (nonatomic, strong) UITableView *chatTableView;
 @property (nonatomic, strong) UITableView *rankTableView;
 @property (nonatomic, strong) AnchorDetailView *anchorDetailView;
+@property (nonatomic, strong) BarrageRenderer *barrageRenderer;
 
 @end
 
@@ -43,6 +52,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    socketTool = [[KOShowSocketTool alloc] init];
+    [socketTool contentServerWithIp:@"1.192.105.180" port:5600];
     // Do any additional setup after loading the view.
 }
 
@@ -126,6 +137,7 @@
 
 - (void)addRankView
 {
+    [socketTool sendLoginRoomRequestWithUserID:@"17603769285176037692851760376928" nickName:@"17603769285clei哈哈" roomID:@"1234"];
     if (_rankTableView)
     {
         [_rankTableView reloadData];
@@ -139,8 +151,59 @@
     [self.downSideView addSubview:_rankTableView];
 }
 
-#pragma mark UITableViewDelegate&UITableViewDataSource
 
+#pragma mark 设置弹幕
+- (void)setBarrageRendererView
+{
+    if (!_barrageRenderer)
+    {
+        _barrageRenderer = [[BarrageRenderer alloc]init];
+        [self.upSideView addSubview:_barrageRenderer.view];
+    }
+    
+    if (self.playerViewSize == PlayerViewSizeFullScreen)
+    {
+        [_barrageRenderer start];
+    }
+    else
+    {
+        [_barrageRenderer stop];
+    }
+    [self setTimer];
+}
+
+- (void)setTimer
+{
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(autoSendBarrage) userInfo:nil repeats:YES];
+    if (self.playerViewSize == PlayerViewSizeSmallScreen)
+    {
+        [timer invalidate];
+        timer = nil;
+    }
+
+}
+
+- (void)autoSendBarrage
+{
+    [_barrageRenderer receive:[self walkTextSpriteDescriptorWithDirection:BarrageWalkDirectionR2L]];
+}
+
+#pragma mark - 弹幕描述符生产方法
+
+/// 生成精灵描述 - 过场文字弹幕
+- (BarrageDescriptor *)walkTextSpriteDescriptorWithDirection:(NSInteger)direction
+{
+    BarrageDescriptor * descriptor = [[BarrageDescriptor alloc]init];
+    descriptor.spriteName = NSStringFromClass([BarrageWalkTextSprite class]);
+    descriptor.params[@"text"] = [NSString stringWithFormat:@" 过场文字弹幕:%ld ",(long)count++];
+    descriptor.params[@"textColor"] = [UIColor whiteColor];
+    descriptor.params[@"speed"] = @(100 * (double)random()/RAND_MAX+50);
+    descriptor.params[@"direction"] = @(direction);
+    return descriptor;
+}
+
+
+#pragma mark UITableViewDelegate&UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
