@@ -219,6 +219,7 @@
 - (void)addToolBarView
 {
     _roomToolBarView = [[RoomToolBarView alloc] initWithFrame:CGRectMake(0, self.downSideView.frame.size.height - TOOL_BAR_HEIGHT, self.view.frame.size.width, TOOL_BAR_HEIGHT) toolBarType:(self.playerViewType == PlayerViewTypeLive) ? RoomToolBarViewTypeChat : RoomToolBarViewTypeComment];
+    _roomToolBarView.delegate = self;
     [self.downSideView addSubview:_roomToolBarView];
 }
 

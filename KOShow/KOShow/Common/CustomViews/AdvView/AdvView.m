@@ -95,7 +95,7 @@
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         //NSString *imageName = (i == 0) ? @"1.png" : @"2.png";
         //[imageView setImageWithURL:[NSURL URLWithString:url] placeholderImage:];
-        NSLog(@"IMAGE_SERVER_URL===%@",[NSURL URLWithString:url]);
+        //NSLog(@"IMAGE_SERVER_URL===%@",[NSURL URLWithString:url]);
         imageView.tag = i + 1;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureHandle:)];
         [imageView addGestureRecognizer:tapGesture];

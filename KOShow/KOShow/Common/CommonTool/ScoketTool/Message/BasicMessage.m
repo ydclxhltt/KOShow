@@ -60,48 +60,46 @@
 }
 
 #pragma mark 登出房间
-+ (NSMutableData *)buildRoomLogoutRequestWithRoomID:(NSString *)roomID
++ (NSMutableData *)buildRoomLogoutRequest
 {
     NSMutableData *requestData = [[NSMutableData alloc] initWithCapacity:0];
-    NSMutableData *bufBody = [[NSMutableData alloc] initWithCapacity:0];
-    NSData *roomIDDate = [roomID dataUsingEncoding:NSUTF8StringEncoding];
-    [bufBody appendBytes:[roomIDDate bytes] length:ROOMID_LENGTH];
-    [BasicMessage buildRequestWithData:requestData andBody:bufBody andCommand:CMD_ROOM_LOGOUT];
+    [BasicMessage buildRequestWithData:requestData andBody:nil andCommand:CMD_ROOM_LOGOUT];
     return requestData;
 }
 
 #pragma mark 发送消息
-+ (void)buildRoomMsgRequestWithType:(int)msgType
-                    andMessage:(NSString *)msg
-                   andFromName:(NSString *)fromName
-                     andToName:(NSString *)toName
-                  andSecretMsg:(int)sceret
-                     andRoomId:(int)roomId
-                     andSrcUid:(int)srcuid
-                     andDesUid:(int)desuid
++ (NSMutableData *)buildRoomMsgRequestWithType:(int)msgType andMessage:(NSString *)message
 {
-    NSLog(@"msg = %@ from:%@ to:%@",msg,fromName,toName);
+    NSMutableData *requestData = [[NSMutableData alloc] initWithCapacity:0];
     NSMutableData *bufBody = [[NSMutableData alloc] initWithCapacity:0];
+    //type
     [bufBody appendBytes:&msgType length:1];
-    
-    NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
-    long msgLen = [msgData length];
-    [bufBody appendBytes:&msgLen length:1];
-    [bufBody appendData:msgData];
-    
-    NSData *fromNameData = [fromName dataUsingEncoding:NSUTF8StringEncoding];
-    long fromNameLen = [fromNameData length];
-    [bufBody appendBytes:&fromNameLen length:1];
-    [bufBody appendData:fromNameData];
-    
-    NSData *toNameData = [toName dataUsingEncoding:NSUTF8StringEncoding];
-    long toNameLen = [toNameData length];
-    [bufBody appendBytes:&toNameLen length:1];
-    [bufBody appendData:toNameData];
-    [bufBody appendBytes:&sceret length:1];
+    //message
+    NSData *messageData = [message dataUsingEncoding:NSUTF8StringEncoding];
+    int messageLen = (int)[messageData length];
+    [bufBody appendBytes:&messageLen length:1];
+    [bufBody appendData:messageData];
+    [BasicMessage buildRequestWithData:requestData andBody:bufBody andCommand:CMD_ROOM_MSG];
+    return requestData;
+}
 
-    //[BasicMessage buildRequestWithBody:bufBody andCommand:CMD_ROOM_MSG andRoomId:roomId];
+#pragma mark 发送礼物 
++ (NSMutableData *)buildRoomGiftRequestWithGiftID:(NSString *)giftID andAnchorID:(NSString *)anchorID andGiftCount:(int)giftCount
+{
+    NSMutableData *requestData = [[NSMutableData alloc] initWithCapacity:0];
+    NSMutableData *bufBody = [[NSMutableData alloc] initWithCapacity:0];
     
+    //giftID
+    NSData *giftIDData = [giftID dataUsingEncoding:NSUTF8StringEncoding];
+    [bufBody appendData:giftIDData];
+    //anchorID
+    NSData *anchorIDData = [anchorID dataUsingEncoding:NSUTF8StringEncoding];
+    [bufBody appendData:anchorIDData];
+    //giftCount
+    [bufBody appendBytes:&giftCount length:1];
+    [BasicMessage buildRequestWithData:requestData andBody:bufBody andCommand:CMD_ROOM_GIFT];
+    
+    return requestData;
 }
 
 
@@ -161,16 +159,16 @@ static id bufferData = nil;
     [dataDic setValue:@(bufLen) forKey:@"length"];
     //bufLen = [MessageUtil get4Bytes:buffer andPosition:pos];
     pos += MESSAGE_ALL_LENGTH;
-    if ([buffer length] < MESSAGE_HEADER_LENGTH || bufLen != [buffer length])
-    {
-        [dataDic setValue:[NSNumber numberWithInt:ERROR_RESPONSE_LENGTH] forKey:@"error"];
-        return dataDic;
-    }
+//    if ([buffer length] < MESSAGE_HEADER_LENGTH || bufLen != [buffer length])
+//    {
+//        [dataDic setValue:[NSNumber numberWithInt:ERROR_RESPONSE_LENGTH] forKey:@"error"];
+//        return dataDic;
+//    }
     
     switch (cmd)
     {
         case CMD_ROOM_LOGIN_ACK:
-            [BasicMessage parseRoomLoginResponse:buffer andPosition:pos andDictionary:dataDic];
+            [BasicMessage parseRoomLoginAckResponse:buffer andPosition:pos andDictionary:dataDic];
             break;
         case CMD_USER_HEARTBEAT_ACK:
             break;
@@ -182,6 +180,14 @@ static id bufferData = nil;
             NSLog(@"CMD_ROOM_MSG_ACK");
             [BasicMessage parseRoomMsgAckResponse:buffer andPosition:pos andDictionary:dataDic];
             break;
+        case CMD_ROOM_GIFT_ACK:
+            NSLog(@"CMD_ROOM_GIFT_ACK");
+            [BasicMessage parseRoomGiftAckResponse:buffer andPosition:pos andDictionary:dataDic];
+            break;
+        case CMD_ROOM_NTF_USER_GIFT:
+            NSLog(@"CMD_ROOM_NTF_USER_GIFT");
+            [BasicMessage parseRoomGiftResponse:buffer andPosition:pos andDictionary:dataDic];
+            break;
         default:
             [dataDic setValue:[NSNumber numberWithInt:ERROR_RESPONSE_COMMAND] forKey:@"error"];
             break;
@@ -191,23 +197,40 @@ static id bufferData = nil;
 }
 
 #pragma mark -
-#pragma mark 房间聊天信息应答解析
+
+#pragma mark 房间登录应答解析
++ (void)parseRoomLoginAckResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict
+{
+    
+    NSLog(@"position = %lu", position);
+    long pos = position;
+    int result = 0;
+    [buffer getBytes:&result range:NSMakeRange(pos, 4)];
+    result = OSSwapInt32(result);
+    [dict setValue:@(result) forKey:@"result"];
+}
+
+#pragma mark 房间发送消息应答解析
++ (void)parseRoomMsgAckResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict
+{
+    int pos = (int)position;
+    int result = [MessageUtil get4Bytes:buffer andPosition:pos];
+    [dict setValue:@(result) forKey:@"result"];
+    
+}
+
+
+#pragma mark 房间聊天信息解析
 + (void)parseRoomMsgResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict{
     int pos = (int)position;
     int type = [MessageUtil get1Byte:buffer andPosition:pos];
-    [dict setValue:[NSNumber numberWithInt:type] forKey:@"Type"];
+    [dict setValue:@(type) forKey:@"Type"];
     pos ++;
-    NSString *userID = [MessageUtil getString:buffer andPosition:pos andLength:32];
-    [dict setValue:userID forKey:@"userID"];
-    pos +=32;
     int nameLength = [MessageUtil get1Byte:buffer andPosition:pos];
     pos += 1;
     NSString *nickName = [MessageUtil getString:buffer andPosition:pos andLength:nameLength];
     [dict setValue:nickName forKey:@"nickName"];
     pos += nameLength;
-    NSString *roomID = [MessageUtil getString:buffer andPosition:pos andLength:ROOMID_LENGTH];
-    [dict setValue:roomID forKey:@"roomID"];
-    pos += ROOMID_LENGTH;
     int messageLength = [MessageUtil get1Byte:buffer andPosition:pos];
     pos += 1;
     NSString *msg = [MessageUtil getString:buffer andPosition:pos andLength:messageLength];
@@ -221,24 +244,38 @@ static id bufferData = nil;
     NSLog(@"CMD_ROOM_MSG_dict = %@",dict);
 }
 
-+ (void)parseRoomMsgAckResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict{
-    int pos = position;
-    int result = [MessageUtil get4Bytes:buffer andPosition:pos];
-    [dict setValue:[NSNumber numberWithInt:result] forKey:@"result"];
-    
-}
-
-+ (void)parseRoomLoginResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict
+#pragma mark 房间发送礼物应答解析
++ (void)parseRoomGiftAckResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict
 {
+    int pos = (int)position;
+    int result = [MessageUtil get4Bytes:buffer andPosition:pos];
+    [dict setValue:@(result) forKey:@"result"];
     
-    NSLog(@"position = %lu", position);
-    long pos = position;
-    int result = 0;
-    [buffer getBytes:&result range:NSMakeRange(pos, 4)];
-    result = OSSwapInt32(result);
-    [dict setValue:[NSNumber numberWithInt:result] forKey:@"result"];
 }
 
-
+#pragma mark 房间发送礼物解析
++ (void)parseRoomGiftResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict
+{
+    int pos = (int)position;
+    
+    int nameLength = [MessageUtil get1Byte:buffer andPosition:pos];
+    [dict setValue:@(nameLength) forKey:@"nameLength"];
+    pos += 1;
+    
+    NSString *nickName = [MessageUtil getString:buffer andPosition:pos andLength:nameLength];
+    [dict setValue:nickName forKey:@"nickName"];
+    pos += nameLength;
+    
+    NSString *anchorID = [MessageUtil getString:buffer andPosition:pos andLength:32];
+    [dict setValue:anchorID forKey:@"anchorID"];
+    
+    pos += 32;
+    NSString *giftID = [MessageUtil getString:buffer andPosition:pos andLength:32];
+    [dict setValue:giftID forKey:@"giftID"];
+    
+    pos += 32;
+    int count = [MessageUtil get1Byte:buffer andPosition:pos];
+    [dict setValue:@(count) forKey:@"count"];
+}
 
 @end

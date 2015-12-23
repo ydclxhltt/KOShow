@@ -29,7 +29,7 @@
 #define MAIN_TEXT_COLOR            RGB(54.0, 55.0, 56.0)
 #define DETAIL_TEXT_COLOR          RGB(122.0, 123.0, 124.0)
 #define MAIN_TEXT_FONT             (SCREEN_WIDTH == 320.0) ? BOLD_FONT(13.0) : BOLD_FONT(14.0)
-#define DETAIL_TEXT_FONT           (SCREEN_WIDTH == 320.0) ? FONT(12.0) :FONT(13.0)
+#define DETAIL_TEXT_FONT           (SCREEN_WIDTH == 320.0) ? FONT(12.0) : FONT(13.0)
 
 /*****我的*****/
 #define MINE_ROW_HEIGHT            50.0

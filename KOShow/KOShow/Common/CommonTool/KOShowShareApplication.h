@@ -10,6 +10,8 @@
 
 @interface KOShowShareApplication : NSObject
 
+@property (nonatomic, strong) NSDictionary *emojiDictionary;
+@property (nonatomic, strong) NSDictionary *giftDictionary;
 
 + (instancetype)shareApplication;
 

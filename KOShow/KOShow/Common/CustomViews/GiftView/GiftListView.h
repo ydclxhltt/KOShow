@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol GiftListViewDelegate;
+
 @interface GiftListView : UIView
+
+@property (nonatomic, assign) id<GiftListViewDelegate> delegate;
+
+- (instancetype)initWithFrame:(CGRect)frame giftArray:(NSArray *)giftArray;
+
+@end
+
+@protocol GiftListViewDelegate <NSObject>
+
+- (void)giftListView:(GiftListView *)giftView didSelectedGiftAtIndex:(int)index;
 
 @end

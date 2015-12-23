@@ -70,6 +70,26 @@
  */
 #define  CMD_ROOM_MSG_ACK 0x10000018
 
+/**
+ * 消息类型：发送礼物消息
+ * 对应GMesage:<br/>
+ * {@link #GRespond_0x10000028_RoomGift}
+ */
+#define  CMD_ROOM_GIFT 0x10000028
+
+/**
+ * 消息类型：发送礼物应答
+ * 对应GMesage:<br/>
+ * {@link #GRespond_0x10000028_RoomGift}
+ */
+#define  CMD_ROOM_GIFT_ACK 0x10000029
+
+/**
+ * 消息类型：房间用户送礼通知
+ * 对应GMesage:<br/>
+ * {@link #GRespond_0x10000028_RoomGift}
+ */
+#define  CMD_ROOM_NTF_USER_GIFT 0x1000002A
 
 /**
  * 接收到的数据长度不正确
@@ -117,29 +137,28 @@
                                           andRoomID:(NSString *)roomID;
 
 //创建 CMD_ROOM_LOGOUT 数据包
-+ (NSMutableData *)buildRoomLogoutRequestWithRoomID:(NSString *)roomID;
++ (NSMutableData *)buildRoomLogoutRequest;
 
 //创建 CMD_ROOM_MSG 数据包
 //+ (void)buildRoomMsgRequest:(NSMutableData *)requestData andType:(int)msgType 
 //                     andMsg:(NSString *)msg andRoomId:(int)roomId;
-+ (void)buildRoomMsgRequestWithType:(int)msgType
-                         andMessage:(NSString *)msg
-                        andFromName:(NSString *)fromName
-                          andToName:(NSString *)toName
-                       andSecretMsg:(int)sceret
-                          andRoomId:(int)roomId
-                          andSrcUid:(int)srcuid
-                          andDesUid:(int)desuid;
++ (NSMutableData *)buildRoomMsgRequestWithType:(int)msgType
+                                    andMessage:(NSString *)message;
 
+//创建 CMD_ROOM_GIFT 数据包
++ (NSMutableData *)buildRoomGiftRequestWithGiftID:(NSString *)giftID andAnchorID:(NSString *)anchorID andGiftCount:(int)giftCount;
 
 //创建数据包
 + (void)buildRequestWithData:(NSMutableData *)requestData andBody:(NSData *)body andCommand:(int)command;
+
 
 //以下全部是解析不同协议数据包
 
 + (void)parseRoomMsgAckResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict;
 + (void)parseRoomMsgResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict;
 + (NSMutableDictionary *)parseResponse:(NSData *)buffer;
-+ (void)parseRoomLoginResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict;
++ (void)parseRoomLoginAckResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict;
++ (void)parseRoomGiftAckResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict;
++ (void)parseRoomGiftResponse:(NSData *)buffer andPosition:(NSUInteger)position andDictionary:(NSDictionary *)dict;
 + (void)cleanBufferData;
 @end

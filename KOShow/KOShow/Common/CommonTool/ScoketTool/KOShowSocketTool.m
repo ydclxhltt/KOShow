@@ -43,13 +43,13 @@
 - (void)createHeartTimer
 {
     [self cancelHeartTimer];
-    [self sendHeartRequest];
-    //_heartTimer = [NSTimer timerWithTimeInterval:HEART_CIRCLE_TIME target:self selector:@selector(sendHeartRequest) userInfo:nil repeats:YES];
+    //[self sendHeartRequest];
+    self.heartTimer = [NSTimer scheduledTimerWithTimeInterval:HEART_CIRCLE_TIME target:self selector:@selector(sendHeartRequest) userInfo:nil repeats:YES];
 }
 
 - (void)cancelHeartTimer
 {
-    if ([self.heartTimer isValid])
+    if (self.heartTimer && [self.heartTimer isValid])
     {
         [self.heartTimer invalidate];
         self.heartTimer = nil;
@@ -70,11 +70,26 @@
 }
 
 #pragma mark 登出房间
-- (void)sendLogoutRoomRequestWithRoomID:(NSString *)roomID
+- (void)sendLogoutRoomRequest
 {
-    NSMutableData *requestData = [BasicMessage buildRoomLogoutRequestWithRoomID:roomID];
+    NSMutableData *requestData = [BasicMessage buildRoomLogoutRequest];
     [self.socketManager writeData:requestData];
 }
+
+#pragma mark 发送消息
+- (void)sendRoomMessageRequestWithType:(int)type message:(NSString *)message
+{
+    NSMutableData *requestData = [BasicMessage buildRoomMsgRequestWithType:type andMessage:message];
+    [self.socketManager writeData:requestData];
+}
+
+#pragma mark 发送礼物
+- (void)sendRoomGiftRequestWithGiftID:(NSString *)giftID anchorID:(NSString *)anchorID giftCount:(int)giftCount
+{
+    NSMutableData *requestData = [BasicMessage buildRoomGiftRequestWithGiftID:giftID andAnchorID:anchorID andGiftCount:giftCount];
+    [self.socketManager writeData:requestData];
+}
+
 
 #pragma mark 断开连接
 - (void)disableSocketConnect
@@ -99,12 +114,16 @@
 //连接成功
 - (void)socketDidConnected
 {
-    [self createHeartTimer];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(koShowSocketDidConnected:)])
+    {
+        [self.delegate koShowSocketDidConnected:self];
+    }
 }
 //连接成功
 - (void)socketDidDisConnected
 {
     [self cancelHeartTimer];
+
 }
 //发送数据成功
 - (void)sendDataSuccess
@@ -116,7 +135,36 @@
 {
     NSMutableDictionary *dataDic = [BasicMessage parseResponse:data];
     NSLog(@"dataDic====%@",dataDic);
-
-
+    int cmd = (int)[[dataDic valueForKey:@"command"] integerValue];
+    int result = (int)[[dataDic valueForKey:@"result"] integerValue];
+    if (dataDic[@"error"])
+    {
+        result = [dataDic[@"error"] intValue];
+    }
+    SEL sel = NULL;
+    switch (cmd)
+    {
+        case CMD_ROOM_LOGIN_ACK:
+            sel = (result == 0) ? @selector(koShowSocketLoginRoomSucess:) : @selector(koShowSocketLoginRoomFailed:);
+            if (self.delegate && [self.delegate respondsToSelector:sel])
+            {
+                [self.delegate performSelector:sel withObject:self];
+            }
+            break;
+        case CMD_USER_HEARTBEAT_ACK:
+            break;
+        case CMD_ROOM_MSG:
+            NSLog(@"CMD_ROOM_MSG");
+            if (self.delegate && [self.delegate respondsToSelector:@selector(koShowSocket:revicedMessageWithDictionary:)] && (result == 0))
+            {
+                [self.delegate koShowSocket:self revicedMessageWithDictionary:dataDic];
+            }
+            break;
+        case CMD_ROOM_MSG_ACK:
+            NSLog(@"CMD_ROOM_MSG_ACK");
+            break;
+        default:
+            break;
+    }
 }
 @end

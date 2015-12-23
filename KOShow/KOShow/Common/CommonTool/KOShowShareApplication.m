@@ -27,7 +27,10 @@ static KOShowShareApplication *shareApplication = nil;
     
     if (self)
     {
-    
+        NSString *emojiListPath = [[NSBundle mainBundle] pathForResource:@"EmojiList" ofType:@"plist"];
+        _emojiDictionary = [NSDictionary dictionaryWithContentsOfFile:emojiListPath];
+        NSString *giftListPath = [[NSBundle mainBundle] pathForResource:@"GiftPropertyList" ofType:@"plist"];
+        _giftDictionary = [NSDictionary dictionaryWithContentsOfFile:giftListPath];
     }
     return self;
 }
