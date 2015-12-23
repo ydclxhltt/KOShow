@@ -10,9 +10,9 @@
 #import <UIKit/UIKit.h>
 
 
-#define KFacialSizeWidth    20
+#define KFacialSizeWidth    19
 
-#define KFacialSizeHeight   20
+#define KFacialSizeHeight   19
 
 #define KCharacterWidth     8
 

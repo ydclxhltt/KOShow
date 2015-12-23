@@ -100,6 +100,7 @@
         UIButton *giftButton = [UIButton buttonWithType:UIButtonTypeCustom];
         giftButton.frame = CGRectMake(x, y, GIFT_ICON_WH, GIFT_ICON_WH);
         [giftButton setBackgroundImage:[UIImage imageNamed:self.giftArray[i]] forState:UIControlStateNormal];
+        giftButton.tag = i + 1;
         [giftButton addTarget:self action:@selector(giftButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.giftScrollView addSubview:giftButton];
         
