@@ -159,11 +159,11 @@ static id bufferData = nil;
     [dataDic setValue:@(bufLen) forKey:@"length"];
     //bufLen = [MessageUtil get4Bytes:buffer andPosition:pos];
     pos += MESSAGE_ALL_LENGTH;
-//    if ([buffer length] < MESSAGE_HEADER_LENGTH || bufLen != [buffer length])
-//    {
-//        [dataDic setValue:[NSNumber numberWithInt:ERROR_RESPONSE_LENGTH] forKey:@"error"];
-//        return dataDic;
-//    }
+    if ([buffer length] < MESSAGE_HEADER_LENGTH || bufLen != [buffer length])
+    {
+        [dataDic setValue:[NSNumber numberWithInt:ERROR_RESPONSE_LENGTH] forKey:@"error"];
+        return dataDic;
+    }
     
     switch (cmd)
     {
