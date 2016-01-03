@@ -10,4 +10,9 @@
 
 @interface AnchorDetailView : UIView
 
+- (void)setAnchorDataWithImageUrl:(NSString *)imageUrl anchorName:(NSString *)name roomName:(NSString *)roomName anchorDetailText:(NSString *)detailText;
+
+- (void)setDetailText:(NSString *)detailText;
+
+
 @end

@@ -11,6 +11,12 @@
 
 #import "RequestUrlHeader.h"
 
+//Default
+#define USER_DEFAULT            [NSUserDefaults standardUserDefaults]
+
+//APPDelegate
+#define DELEGATE                (AppDelegate *)([[UIApplication sharedApplication] delegate])
+
 //设置RGB
 #define RGBA(R,G,B,AL)          [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:AL]
 #define RGB(R,G,B)              [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0]

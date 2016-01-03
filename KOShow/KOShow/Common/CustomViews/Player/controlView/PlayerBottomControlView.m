@@ -6,8 +6,6 @@
 //  Copyright (c) 2015年 chenlei. All rights reserved.
 //-----------------自定义工具栏（播放，进度条等）-----------------------
 
-typedef void (^ClickHandle)(NSInteger);
-typedef void (^SlideHandle)(CGFloat,BOOL);
 
 #import "PlayerBottomControlView.h"
 

@@ -62,9 +62,11 @@
         AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:_videoUrl] options:nil];
         NSArray *requestedKeys = @[@"playable"];
         
+        __weak typeof(self) weakSelf = self;
+        
         [asset loadValuesAsynchronouslyForKeys:requestedKeys completionHandler:^{
              dispatch_async(dispatch_get_main_queue(),^{
-                [self prepareToPlayAsset:asset withKeys:requestedKeys];
+                [weakSelf prepareToPlayAsset:asset withKeys:requestedKeys];
             });
         }];
     }
@@ -269,69 +271,76 @@
     }
     self.playerViewSize = (self.playerViewSize == PlayerViewSizeSmallScreen) ? PlayerViewSizeFullScreen : PlayerViewSizeSmallScreen;
    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    if (self.playDataDic)
+    {
+        [self.fullTopControlView addRoomNameLabelWithName:self.playDataDic[@"title"]];
+    }
+    
 }
 
 #pragma mark 设置方位
 -(void)turnToPortraint
 {
+    __weak typeof(self) weakSelf = self;
     [[UIApplication sharedApplication]setStatusBarOrientation:UIDeviceOrientationPortrait animated:YES];
     [UIView animateWithDuration:0.5f animations:^{
-        self.view.transform = CGAffineTransformMakeRotation(0);
-        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        self.upSideView.frame = CGRectMake(0, 0, _originFrame.size.width,  _originFrame.size.height);
-        self.videoView.frame = CGRectMake(0, 0, _originFrame.size.width,  _originFrame.size.height);
-        if (self.videoBottomControlView)
+        weakSelf.view.transform = CGAffineTransformMakeRotation(0);
+        weakSelf.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        weakSelf.upSideView.frame = CGRectMake(0, 0, _originFrame.size.width,  _originFrame.size.height);
+        weakSelf.videoView.frame = CGRectMake(0, 0, _originFrame.size.width,  _originFrame.size.height);
+        if (weakSelf.videoBottomControlView)
         {
-            self.videoBottomControlView.frame = CGRectMake(0, _originFrame.size.height - BOTTOM_HEIGHT, _originFrame.size.width, BOTTOM_HEIGHT);
-            [ self.videoBottomControlView resetFrame];
+            weakSelf.videoBottomControlView.frame = CGRectMake(0, _originFrame.size.height - BOTTOM_HEIGHT, _originFrame.size.width, BOTTOM_HEIGHT);
+            [weakSelf.videoBottomControlView resetFrame];
         }
-        if (self.liveSmallBottomView)
+        if (weakSelf.liveSmallBottomView)
         {
-            self.liveSmallBottomView.hidden = NO;
+            weakSelf.liveSmallBottomView.hidden = NO;
         }
-        if (self.liveFullBottomView)
+        if (weakSelf.liveFullBottomView)
         {
-            [self.liveFullBottomView reSetFrame];
-            self.liveFullBottomView.hidden = YES;
+            [weakSelf.liveFullBottomView reSetFrame];
+            weakSelf.liveFullBottomView.hidden = YES;
         }
-        self.topSmallView.hidden = NO;
-        self.fullTopControlView.hidden = YES;
+        weakSelf.topSmallView.hidden = NO;
+        weakSelf.fullTopControlView.hidden = YES;
     }
     completion:^(BOOL finished)
     {
-         [self setBarrageRendererView];
+         [weakSelf setBarrageRendererView];
     }];
     
 }
 
 -(void)turnToLeft
 {
+    __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.5f animations:^{
         CGRect frect = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
-        self.view.frame = frect;
-        self.view.center = CGPointMake(frect.size.height/2, frect.size.width/2);
-        self.upSideView.frame = CGRectMake(0, 0, frect.size.width,  frect.size.height);
-        self.videoView.frame = CGRectMake(0, 0, frect.size.width,  frect.size.height);
-        if (self.videoBottomControlView)
+        weakSelf.view.frame = frect;
+        weakSelf.view.center = CGPointMake(frect.size.height/2, frect.size.width/2);
+        weakSelf.upSideView.frame = CGRectMake(0, 0, frect.size.width,  frect.size.height);
+        weakSelf.videoView.frame = CGRectMake(0, 0, frect.size.width,  frect.size.height);
+        if (weakSelf.videoBottomControlView)
         {
-            self.videoBottomControlView.frame = CGRectMake(0, frect.size.height - BOTTOM_HEIGHT, frect.size.width, BOTTOM_HEIGHT);
-            [ self.videoBottomControlView resetFrame];
+            weakSelf.videoBottomControlView.frame = CGRectMake(0, frect.size.height - BOTTOM_HEIGHT, frect.size.width, BOTTOM_HEIGHT);
+            [ weakSelf.videoBottomControlView resetFrame];
         }
-        if (self.liveSmallBottomView)
+        if (weakSelf.liveSmallBottomView)
         {
-            self.liveSmallBottomView.hidden = YES;
+            weakSelf.liveSmallBottomView.hidden = YES;
         }
-        if (self.liveFullBottomView)
+        if (weakSelf.liveFullBottomView)
         {
-            self.liveFullBottomView.hidden = NO;
+            weakSelf.liveFullBottomView.hidden = NO;
         }
-        self.topSmallView.hidden = YES;
-        self.fullTopControlView.hidden = NO;
-        self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
+        weakSelf.topSmallView.hidden = YES;
+        weakSelf.fullTopControlView.hidden = NO;
+        weakSelf.view.transform = CGAffineTransformMakeRotation(M_PI_2);
     }
     completion:^(BOOL finished)
      {
-         [self setBarrageRendererView];
+         [weakSelf setBarrageRendererView];
      }];
     [[UIApplication sharedApplication]setStatusBarOrientation:UIDeviceOrientationLandscapeLeft animated:YES];
 }

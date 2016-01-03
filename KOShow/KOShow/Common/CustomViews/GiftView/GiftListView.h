@@ -13,6 +13,7 @@
 @interface GiftListView : UIView
 
 @property (nonatomic, assign) id<GiftListViewDelegate> delegate;
+@property (nonatomic, strong) NSArray *giftArray;
 
 - (instancetype)initWithFrame:(CGRect)frame giftArray:(NSArray *)giftArray;
 

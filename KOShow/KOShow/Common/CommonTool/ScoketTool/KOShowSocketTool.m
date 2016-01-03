@@ -59,6 +59,7 @@
 - (void)sendHeartRequest
 {
     NSMutableData *requestData = [BasicMessage buildHeartBeatRequest];
+    NSLog(@"requestData===%@",requestData);
     [self.socketManager writeData:requestData];
 }
 
@@ -86,6 +87,7 @@
 #pragma mark 发送礼物
 - (void)sendRoomGiftRequestWithGiftID:(NSString *)giftID anchorID:(NSString *)anchorID giftCount:(int)giftCount
 {
+    NSLog(@"giftID===%@",giftID);
     NSMutableData *requestData = [BasicMessage buildRoomGiftRequestWithGiftID:giftID andAnchorID:anchorID andGiftCount:giftCount];
     [self.socketManager writeData:requestData];
 }
@@ -163,8 +165,31 @@
         case CMD_ROOM_MSG_ACK:
             NSLog(@"CMD_ROOM_MSG_ACK");
             break;
+        case CMD_ROOM_GIFT_ACK:
+            NSLog(@"CMD_ROOM_GIFT_ACK");
+            break;
+        case CMD_ROOM_NTF_USER_GIFT:
+            NSLog(@"CMD_ROOM_NTF_USER_GIFT");
+            if (self.delegate && [self.delegate respondsToSelector:@selector(koShowSocket:revicedGiftWithDictionary:)] && (result == 0))
+            {
+                [self.delegate koShowSocket:self revicedGiftWithDictionary:dataDic];
+            }
         default:
             break;
     }
 }
+
+- (void)clearSocket
+{
+    [self.socketManager disableConnectNow:YES];
+    [self cancelHeartTimer];
+    [self.socketManager clearSocket];
+    self.socketManager.delegate = nil;
+}
+
+- (void)dealloc
+{
+    
+}
+
 @end

@@ -45,4 +45,29 @@
     [self.contentView addSubview:_rightView];
 }
 
+#pragma mark 设置数据
+- (void)setLeftViewData:(NSDictionary *)leftDic rightViewData:(NSDictionary *)rightDic
+{
+    if (!leftDic)
+    {
+        return;
+    }
+    self.leftView.hidden = NO;
+    NSString *leftImageUrl = leftDic[@"max_img_path"];
+    NSString *leftMinImageUrl = leftDic[@"min_img_path"];
+    leftMinImageUrl = (leftMinImageUrl && ![leftMinImageUrl isKindOfClass:[NSNull class]]) ? leftMinImageUrl : @"";
+    leftImageUrl = (leftImageUrl && ![leftImageUrl isKindOfClass:[NSNull class]])? leftImageUrl : leftMinImageUrl;
+    [self.leftView setVideoDataWithImageUrl:[[KOShowShareApplication shareApplication] makeImageUrlWithRightHalfString:leftImageUrl] anchorName:leftDic[@"nickname"] onlineCount:[leftDic[@"curr_online_num"] intValue] roomName:leftDic[@"title"]];
+    
+    self.rightView.hidden = !rightDic;
+    NSString *rightImageUrl = rightDic[@"max_img_path"];
+    NSString *rightMinImageUrl = rightDic[@"min_img_path"];
+    rightMinImageUrl = (rightMinImageUrl && ![rightMinImageUrl isKindOfClass:[NSNull class]]) ? rightMinImageUrl : @"";
+    rightImageUrl = (rightImageUrl && ![rightImageUrl isKindOfClass:[NSNull class]]) ? rightImageUrl : rightMinImageUrl;
+    [self.rightView setVideoDataWithImageUrl:[[KOShowShareApplication shareApplication] makeImageUrlWithRightHalfString:rightImageUrl] anchorName:rightDic[@"nickname"] onlineCount:[rightDic[@"curr_online_num"] intValue] roomName:rightDic[@"title"]];
+    
+}
+
+
+
 @end

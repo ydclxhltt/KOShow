@@ -5,9 +5,55 @@
 //  Created by 陈磊 on 15/8/22.
 //  Copyright (c) 2015年 chenlei. All rights reserved.
 //
+@interface UINavigationController (category)
 
-#import <UIKit/UIKit.h>
+@end
 
+@implementation UINavigationController (category)
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return [self.topViewController supportedInterfaceOrientations];
+    //return  UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return [self.topViewController preferredInterfaceOrientationForPresentation];
+    //return UIInterfaceOrientationPortrait;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+@end
+
+@interface UITabBarController (category)
+
+@end
+
+@implementation UITabBarController (category)
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return self.selectedViewController.supportedInterfaceOrientations;
+    //return  UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return self.selectedViewController.preferredInterfaceOrientationForPresentation;
+    //return UIInterfaceOrientationPortrait;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+@end
 
 typedef enum : NSUInteger
 {
@@ -31,12 +77,18 @@ typedef enum : NSUInteger {
     VideoTypeMovie,
 } VideoType;
 
+
+#import <UIKit/UIKit.h>
+#import "MJRefresh.h"
+
 @interface BasicViewController : UIViewController
 {
     float start_y;
 }
 
 @property (nonatomic, strong) UITableView *table;
+@property (nonatomic, strong) MJRefreshHeaderView *refreshHeaderView;
+@property (nonatomic, strong) MJRefreshFooterView *refreshFooterView;
 
 /*
  *  设置导航条Item
@@ -70,5 +122,15 @@ typedef enum : NSUInteger {
  *
  */
 - (void)addTableViewWithFrame:(CGRect)frame tableType:(UITableViewStyle)type tableDelegate:(id)delegate;
+
+/*
+ *  设置刷新视图
+ */
+- (void)addRefreshHeaderView;
+
+/*
+ *  设置加载更多视图
+ */
+- (void)addRefreshFooterView;
 
 @end

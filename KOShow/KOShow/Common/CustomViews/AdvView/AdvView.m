@@ -6,6 +6,8 @@
 //  Copyright (c) 2014年 chenlei. All rights reserved.
 //
 
+#define LABEL_HEIGHT    20.0 * CURRENT_SCALE
+
 #import "AdvView.h"
 #import "CommonHeader.h"
 #import "CreateViewTool.h"
@@ -49,7 +51,7 @@
         advscrollview.contentOffset=CGPointMake(SCREEN_WIDTH, 0);
         advscrollview.scrollsToTop = NO;
         advscrollview.delegate=self;
-        advscrollview.contentSize = CGSizeMake(SCREEN_WIDTH* 3,
+        advscrollview.contentSize = CGSizeMake(SCREEN_WIDTH * 3,
                                                advscrollview.frame.size.height);
         [self addSubview:advscrollview];
         
@@ -90,18 +92,25 @@
     
     for (int i = 0; i < 3; i++)
     {
-        NSString *url = [curImages objectAtIndex:i];
-        UIImageView *imageView = [CreateViewTool createImageViewWithFrame:CGRectMake(advscrollview.frame.size.width * i, 0, advscrollview.frame.size.width, advscrollview.frame.size.height) placeholderImage:[UIImage imageNamed:@"1.jpg"]];
+        NSDictionary *dic = [curImages objectAtIndex:i];
+        NSString *imageUrl = [[KOShowShareApplication shareApplication] makeImageUrlWithRightHalfString:dic[@"max_img_path"]];
+        NSString *title = [NSString stringWithFormat:@"  %@",dic[@"title"]];
+        UIImageView *imageView = [CreateViewTool createImageViewWithFrame:CGRectMake(advscrollview.frame.size.width * i, 0, advscrollview.frame.size.width, advscrollview.frame.size.height) placeholderImage:nil];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
-        //NSString *imageName = (i == 0) ? @"1.png" : @"2.png";
-        //[imageView setImageWithURL:[NSURL URLWithString:url] placeholderImage:];
+        [imageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"adv_default.jpg"]];
         //NSLog(@"IMAGE_SERVER_URL===%@",[NSURL URLWithString:url]);
         imageView.tag = i + 1;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureHandle:)];
         [imageView addGestureRecognizer:tapGesture];
         [advscrollview addSubview:imageView];
+        
+        UILabel *label = [CreateViewTool createLabelWithFrame:CGRectMake(0, imageView.frame.size.height - LABEL_HEIGHT, imageView.frame.size.width, LABEL_HEIGHT) textString:title textColor:[UIColor whiteColor] textFont:FONT(14.0)];
+        label.backgroundColor = RGBA(0.0, 0.0, 0.0, 0.6);
+        [imageView addSubview:label];
     }
     [advscrollview setContentOffset:CGPointMake(SCREEN_WIDTH, 0)];
+    advscrollview.contentSize = CGSizeMake(SCREEN_WIDTH * [self.advArray count],
+                                           advscrollview.frame.size.height);
 }
 
 

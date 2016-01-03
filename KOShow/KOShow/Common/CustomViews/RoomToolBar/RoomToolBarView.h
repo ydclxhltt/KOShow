@@ -19,12 +19,15 @@ typedef enum : NSUInteger {
 
 @interface RoomToolBarView : UIView
 
-@property (nonatomic, strong) id<RoomToolBarViewDelegate> delegate;
+@property (nonatomic, assign) id<RoomToolBarViewDelegate> delegate;
+@property (nonatomic, strong) NSArray *giftArray;
 @property (nonatomic, strong) GiftListView *giftView;
+@property (nonatomic, strong) UIButton *giftButton;
 
 
 - (instancetype)initWithFrame:(CGRect)frame toolBarType:(RoomToolBarViewType)type;
 - (void)resetGiftView;
+- (void)giftButtonPressed:(UIButton *)sender;
 
 @end
 
@@ -33,5 +36,6 @@ typedef enum : NSUInteger {
 @optional
 
 - (void)roomToolBarView:(RoomToolBarView *)roomToolBarView sendMessage:(NSString *)message;
+- (void)roomToolBarView:(RoomToolBarView *)roomToolBarView giftButtonPressed:(UIButton *)sender;
 
 @end

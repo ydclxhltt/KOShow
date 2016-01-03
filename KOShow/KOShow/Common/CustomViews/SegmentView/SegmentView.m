@@ -92,7 +92,7 @@
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(segmentView:selectedItemAtIndex:)])
     {
-        [self.delegate segmentView:self selectedItemAtIndex:(int)sender.tag];
+        [self.delegate segmentView:self selectedItemAtIndex:(int)sender.tag - 1];
     }
 }
 

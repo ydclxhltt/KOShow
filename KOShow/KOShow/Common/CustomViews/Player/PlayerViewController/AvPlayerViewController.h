@@ -12,5 +12,6 @@
 @interface AvPlayerViewController : PlayerUIViewController
 
 @property (nonatomic, strong) NSString *videoUrl;
+@property (nonatomic, strong) NSDictionary *playDataDic;
 
 @end

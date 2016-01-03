@@ -15,6 +15,7 @@
 @property (nonatomic, assign) id<PlayerFullTopControlViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame roomName:(NSString *)name buttonArray:(NSArray *)array;
+- (void)addRoomNameLabelWithName:(NSString *)name;
 
 @end
 

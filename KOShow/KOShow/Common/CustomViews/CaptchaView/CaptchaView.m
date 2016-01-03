@@ -8,9 +8,9 @@
 
 
 #define kRandomColor  [UIColor colorWithRed:arc4random() % 256 / 256.0 green:arc4random() % 256 / 256.0 blue:arc4random() % 256 / 256.0 alpha:1.0];
-#define kLineCount 6
+#define kLineCount 2
 #define kLineWidth 1.0
-#define kCharCount 6
+#define kCharCount 4
 #define kFontSize [UIFont systemFontOfSize:arc4random() % 5 + 15]
 
 
@@ -19,7 +19,7 @@
 @interface CaptchaView()
 
 @property (nonatomic, strong) NSArray *changeArray; //字符素材数组
-@property (nonatomic, strong) NSMutableString *changeString;  //验证码的字符串
+
 
 @end
 
@@ -30,8 +30,8 @@
     if (self = [super initWithFrame:frame])
     {
         
-        self.layer.cornerRadius = 5.0; //设置layer圆角半径
-        self.layer.masksToBounds = YES; //隐藏边界
+        //self.layer.cornerRadius = 5.0; //设置layer圆角半径
+        //self.layer.masksToBounds = YES; //隐藏边界
         self.backgroundColor = kRandomColor;
         //<一>从字符数组中随机抽取相应数量的字符，组成验证码字符串
         //数组中存放的是全部可选的字符，可以是字母，也可以是中文
@@ -45,16 +45,15 @@
     return self;
 }
 #pragma mark 更换验证码,得到更换的验证码的字符串
--(void)changeCaptcha
+- (void)changeCaptcha
 {
      //随机从数组中选取需要个数的字符，然后拼接为一个字符串
-    NSMutableString *getStr = [[NSMutableString alloc] initWithCapacity:kCharCount];
+    self.changeString = @"";
     for(int i = 0; i < kCharCount; i++)
     {
         NSInteger index = arc4random() % ([self.changeArray count] - 1);
-        getStr = [self.changeArray objectAtIndex:index];
-        
-        self.changeString = (NSMutableString *)[self.changeString stringByAppendingString:getStr];
+        NSString *getStr = [self.changeArray objectAtIndex:index];
+        self.changeString = [self.changeString stringByAppendingString:getStr];
     }
     
     //<2>从网络获取字符串，然后把得到的字符串在本地绘制出来（网络获取步骤在这省略）
@@ -62,7 +61,7 @@
 }
 
 #pragma mark 点击view时调用
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //点击界面，切换验证码
     [self changeCaptcha];

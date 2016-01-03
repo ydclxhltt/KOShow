@@ -169,6 +169,10 @@
         [button setBackgroundImage:[CommonTool imageWithColor:selectedColor] forState:UIControlStateHighlighted];
         [button setBackgroundImage:[CommonTool imageWithColor:selectedColor] forState:UIControlStateSelected];
     }
+    else
+    {
+        [button setBackgroundImage:[CommonTool imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
+    }
     if (selName && ![@"" isEqualToString:selName])
     {
         if (delegate && [delegate respondsToSelector:NSSelectorFromString(selName)])

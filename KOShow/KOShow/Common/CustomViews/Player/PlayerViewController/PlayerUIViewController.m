@@ -69,7 +69,7 @@
 //大Top
 - (void)addFullTopView
 {
-    _fullTopControlView = [[PlayerFullTopControlView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, STATUS_BAR_HEIGHT + NAVBAR_HEIGHT) roomName:@"我的直播间之炉石传说" buttonArray:@[@"超清",(self.playerViewType == PlayerViewTypeLive) ? @"关注" : @"收藏"]];
+    _fullTopControlView = [[PlayerFullTopControlView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, STATUS_BAR_HEIGHT + NAVBAR_HEIGHT) roomName:@"" buttonArray:@[@"超清",(self.playerViewType == PlayerViewTypeLive) ? @"关注" : @"收藏"]];
     _fullTopControlView.delegate = self;
     _fullTopControlView.hidden = YES;
     [self.upSideView addSubview:_fullTopControlView];
@@ -304,6 +304,21 @@
 
 }
 
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return  UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
 
 #pragma mark ****状态栏显示****
 - (BOOL)prefersStatusBarHidden

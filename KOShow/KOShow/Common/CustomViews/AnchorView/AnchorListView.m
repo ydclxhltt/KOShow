@@ -16,6 +16,7 @@
 @interface AnchorListView()
 
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) NSArray *dataArray;
 
 @end
 
@@ -57,6 +58,7 @@
     {
         return;
     }
+    self.dataArray = array;
     float iconWidth = (self.scrollView.frame.size.width - 2 * SPACE_X - 3 * ADD_X)/4;
     float iconHeight = iconWidth;
     float labelWidth = iconWidth;
@@ -71,32 +73,53 @@
         UILabel *roomNameLabel = (UILabel *)[self.scrollView viewWithTag:10000 + i];
         if (!iconImageView)
         {
-            iconImageView = [CreateViewTool createRoundImageViewWithFrame:CGRectMake(x, y, iconWidth, iconHeight) placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"%d.jpg",i + 2]] borderColor:LAYER_COLOR imageUrl:@""];
+            iconImageView = [CreateViewTool createRoundImageViewWithFrame:CGRectMake(x, y, iconWidth, iconHeight) placeholderImage:nil borderColor:LAYER_COLOR imageUrl:@""];
             iconImageView.tag = 100 + i;
             [self.scrollView addSubview:iconImageView];
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureHandle:)];
+            [iconImageView addGestureRecognizer:tapGesture];
+     
             
             y += iconImageView.frame.size.height + ADD_Y;
             
-            nameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(iconImageView.frame.origin.x, y, labelWidth, labelHeight) textString:array[i] textColor:MAIN_TEXT_COLOR textFont:MAIN_TEXT_FONT];
+            nameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(iconImageView.frame.origin.x, y, labelWidth, labelHeight) textString:@"" textColor:MAIN_TEXT_COLOR textFont:MAIN_TEXT_FONT];
             nameLabel.textAlignment = NSTextAlignmentCenter;
             nameLabel.tag = 1000 + i;
             [self.scrollView addSubview:nameLabel];
             
              y += nameLabel.frame.size.height;
             
-            roomNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(iconImageView.frame.origin.x, y, labelWidth, labelHeight) textString:@"直播间名称" textColor:DETAIL_TEXT_COLOR textFont:DETAIL_TEXT_FONT];
+            roomNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(iconImageView.frame.origin.x, y, labelWidth, labelHeight) textString:@"" textColor:DETAIL_TEXT_COLOR textFont:DETAIL_TEXT_FONT];
             roomNameLabel.textAlignment = NSTextAlignmentCenter;
-            roomNameLabel.tag = 1000 + i;
+            roomNameLabel.tag = 10000 + i;
             [self.scrollView addSubview:roomNameLabel];
         }
-        else
-        {
-            iconImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.jpg",i + 2]];
-            nameLabel.text = array[i];
-            roomNameLabel.text = @"直播间名称";
-        }
+        [self setDataforIndex:i];
     }
     self.scrollView.contentSize = CGSizeMake( 2 * SPACE_X + ([array count] - 1) * ADD_X + [array count] * iconWidth, self.scrollView.frame.size.height);
 }
+
+- (void)setDataforIndex:(int)index
+{
+    NSDictionary *dataDic = self.dataArray[index];
+    UIImageView *iconImageView = (UIImageView *)[self.scrollView viewWithTag:100 + index];
+    UILabel *nameLabel = (UILabel *)[self.scrollView viewWithTag:1000 + index];
+    UILabel *roomNameLabel = (UILabel *)[self.scrollView viewWithTag:10000 + index];
+    [iconImageView setImageWithURL:[NSURL URLWithString:[[KOShowShareApplication shareApplication] makeImageUrlWithRightHalfString:dataDic[@"small_header_url"]]] placeholderImage:[UIImage imageNamed:@"anchor_default.jpg"]];
+    NSString *name = dataDic[@"nickname"];
+    nameLabel.text = (name) ? name : @"";
+    NSString *title = dataDic[@"title"];
+    roomNameLabel.text = (title) ? title : @"";
+}
+
+#pragma mark 点击主播头像
+- (void)tapGestureHandle:(UITapGestureRecognizer *)tapGesture
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(anchorListView:didSelectedAnchorAtIndex:)])
+    {
+        [self.delegate anchorListView:self didSelectedAnchorAtIndex:(int)tapGesture.view.tag - 100];
+    }
+}
+
 
 @end

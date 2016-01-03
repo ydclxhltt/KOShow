@@ -80,7 +80,7 @@
 /**
  * 消息类型：发送礼物应答
  * 对应GMesage:<br/>
- * {@link #GRespond_0x10000028_RoomGift}
+ * {@link #GRespond_0x10000029_RoomGift}
  */
 #define  CMD_ROOM_GIFT_ACK 0x10000029
 

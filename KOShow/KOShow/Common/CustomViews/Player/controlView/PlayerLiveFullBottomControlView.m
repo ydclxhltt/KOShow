@@ -133,13 +133,14 @@
 
 - (void)keyboardAppearanceNotinficaiton:(NSNotification *)notification
 {
+    __weak typeof(self) weakSelf = self;
     NSDictionary *userInfo = notification.userInfo;
     CGSize keyBoardSize = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     CGRect frame = self.frame;
     frame.origin.y -= keyBoardSize.height;
     [UIView animateWithDuration:[userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue]
                      animations:^{
-                         self.frame = (notification.name == UIKeyboardWillShowNotification) ? frame : self.originFrame;
+                         weakSelf.frame = (notification.name == UIKeyboardWillShowNotification) ? frame : self.originFrame;
                      }];
 }
 

@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>00000000000000000000000000000001</key>
-	<string>前进</string>
-	<key>00000000000000000000000000000002</key>
-	<string>加油</string>
-	<key>00000000000000000000000000000003</key>
-	<string>我爱你</string>
-	<key>00000000000000000000000000000004</key>
-	<string>皇冠</string>
-	<key>00000000000000000000000000000005</key>
-	<string>红心</string>
-	<key>00000000000000000000000000000006</key>
-	<string>美女</string>
-</dict>
+<array>
+	<dict>
+		<key>08c77618ef97433fb9505dd88e4680fc</key>
+		<string>红心</string>
+	</dict>
+	<dict>
+		<key>1d12da17512641c09aa2e56dc30ecd9a</key>
+		<string>美女</string>
+	</dict>
+	<dict>
+		<key>40227b52bedb49ab9a144af6e0872e05</key>
+		<string>加油</string>
+	</dict>
+	<dict>
+		<key>79d18ea3a0334506b0690ebcf3752750</key>
+		<string>前进</string>
+	</dict>
+	<dict>
+		<key>c262ee81382949138d968dd5c9fb6713</key>
+		<string>皇冠</string>
+	</dict>
+	<dict>
+		<key>f2de264653504825931e180f7e4f86b8</key>
+		<string>我爱你</string>
+	</dict>
+</array>
 </plist>

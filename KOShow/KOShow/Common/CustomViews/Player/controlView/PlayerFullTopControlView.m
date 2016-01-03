@@ -84,13 +84,21 @@
 - (void)addRoomNameLabelWithName:(NSString *)name
 {
     name = name ? name : @"";
-    UIImageView *imageView = [CreateViewTool createImageViewWithFrame:CGRectMake(start_x, STATUS_BAR_HEIGHT + SPACE_Y, LINT_WIDTH, self.frame.size.height - STATUS_BAR_HEIGHT - 2 * SPACE_Y) placeholderImage:nil];
-    imageView.backgroundColor = LINE_COLOR;
-    [self addSubview:imageView];
-    start_x += 10.0;
-    float width = right_x - start_x - ADD_X;
-    _roomNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(start_x, STATUS_BAR_HEIGHT, width, self.frame.size.height - STATUS_BAR_HEIGHT) textString:name textColor:[UIColor whiteColor] textFont:FONT(15.0)];
-    [self addSubview:_roomNameLabel];
+    if (!_roomNameLabel)
+    {
+        UIImageView *imageView = [CreateViewTool createImageViewWithFrame:CGRectMake(start_x, STATUS_BAR_HEIGHT + SPACE_Y, LINT_WIDTH, self.frame.size.height - STATUS_BAR_HEIGHT - 2 * SPACE_Y) placeholderImage:nil];
+        imageView.backgroundColor = LINE_COLOR;
+        [self addSubview:imageView];
+        start_x += 10.0;
+        float width = right_x - start_x - ADD_X;
+        _roomNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(start_x, STATUS_BAR_HEIGHT, width, self.frame.size.height - STATUS_BAR_HEIGHT) textString:name textColor:[UIColor whiteColor] textFont:FONT(15.0)];
+        [self addSubview:_roomNameLabel];
+    }
+    else
+    {
+        _roomNameLabel.text = name;
+    }
+
 }
 
 #pragma mark 返回按钮

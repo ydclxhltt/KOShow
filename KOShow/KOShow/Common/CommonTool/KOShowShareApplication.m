@@ -29,11 +29,31 @@ static KOShowShareApplication *shareApplication = nil;
     {
         NSString *emojiListPath = [[NSBundle mainBundle] pathForResource:@"EmojiList" ofType:@"plist"];
         _emojiDictionary = [NSDictionary dictionaryWithContentsOfFile:emojiListPath];
-        NSString *giftListPath = [[NSBundle mainBundle] pathForResource:@"GiftPropertyList" ofType:@"plist"];
-        _giftDictionary = [NSDictionary dictionaryWithContentsOfFile:giftListPath];
+        //NSString *giftListPath = [[NSBundle mainBundle] pathForResource:@"GiftPropertyList" ofType:@"plist"];
+        //_giftArray = [NSArray arrayWithContentsOfFile:giftListPath];
+        _imageServer = @"";
+        _uploadIconUrl = @"";
+        _socketPort = @"";
+        _socketServerIP = @"";
     }
     return self;
 }
 
++ (void)saveUserInfoWithUserName:(NSString *)userName password:(NSString *)password
+{
+    [USER_DEFAULT setObject:userName forKey:@"userName"];
+    [USER_DEFAULT setObject:password forKey:@"password"];
+}
+
+- (NSString *)makeImageUrlWithRightHalfString:(NSString *)rightHalfString
+{
+    NSString *imageUrl = @"";
+    if (!rightHalfString)
+    {
+        return imageUrl;
+    }
+    imageUrl = [self.imageServer stringByAppendingString:rightHalfString];
+    return imageUrl;
+}
 
 @end

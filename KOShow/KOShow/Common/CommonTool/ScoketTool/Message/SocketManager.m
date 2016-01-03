@@ -206,4 +206,18 @@
     }
 }
 
+- (void)clearSocket
+{
+    if (self.socket)
+    {
+        [self.socket disconnect];
+        [self freeConnectSocket];
+    }
+}
+
+- (void)dealloc
+{
+    
+}
+
 @end

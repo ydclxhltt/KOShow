@@ -9,9 +9,9 @@
 #import "WebViewController.h"
 
 @interface WebViewController ()
-{
-    UIWebView *webView;
-}
+
+@property (nonatomic, strong) UIWebView *webView;
+
 @end
 
 @implementation WebViewController
@@ -34,25 +34,26 @@
 
 - (void)addWebView
 {
-    webView = [[UIWebView  alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    webView.scalesPageToFit = YES;
-    webView.scrollView.bounces = NO;
-    [self.view addSubview:webView];
+    _webView = [[UIWebView  alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    _webView.scalesPageToFit = YES;
+    _webView.scrollView.bounces = NO;
+    [self.view addSubview:_webView];
 }
 
 
 #pragma mark 加载网页
 - (void)loadWebView
 {
+     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^
     {
-        self.urlString = self.urlString ? self.urlString : @"";
-        if (self.urlString.length == 0)
+        weakSelf.urlString = weakSelf.urlString ? weakSelf.urlString : @"";
+        if (weakSelf.urlString.length == 0)
         {
             return;
         }
-        NSURLRequest *request = [NSURLRequest  requestWithURL:[NSURL URLWithString:self.urlString]];
-        [webView loadRequest:request];
+        NSURLRequest *request = [NSURLRequest  requestWithURL:[NSURL URLWithString:weakSelf.urlString]];
+        [weakSelf.webView loadRequest:request];
     });
 
 }
@@ -60,9 +61,9 @@
 #pragma mark  返回
 - (void)backButtonPressed:(UIButton *)sender
 {
-    if ([webView canGoBack])
+    if ([self.webView canGoBack])
     {
-        [webView goBack];
+        [self.webView goBack];
     }
     else
     {

@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) VideoView *leftView, *rightView;
 
+- (void)setLeftViewData:(NSDictionary *)leftDic rightViewData:(NSDictionary *)rightDic;
+
 @end

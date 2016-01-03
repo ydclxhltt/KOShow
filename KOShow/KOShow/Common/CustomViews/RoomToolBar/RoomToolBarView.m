@@ -21,12 +21,10 @@
 @interface RoomToolBarView()<UITextFieldDelegate,EmojiViewDelegate>
 
 @property (nonatomic, strong) UITextField *messageTextField;
-@property (nonatomic, strong) UIButton *giftButton;
 @property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) UIButton *faceButton;
 @property (nonatomic, assign) CGRect originFrame;
 @property (nonatomic, strong) EmojiView *emojiView;
-
 
 @end
 
@@ -54,6 +52,7 @@
     
     _messageTextField = [CreateViewTool createTextFieldWithFrame:CGRectMake(x,(self.frame.size.height - TEXTFIELD_HEIGHT)/2, textFieldWidth, TEXTFIELD_HEIGHT) textColor:[UIColor blackColor] textFont:FONT(15.0) placeholderText:@"说点什么吧...."];
     _messageTextField.borderStyle = UITextBorderStyleRoundedRect ;
+    _messageTextField.keyboardType = UIKeyboardTypeNamePhonePad;
     _messageTextField.backgroundColor = [UIColor whiteColor];
     _messageTextField.delegate = self;
     _messageTextField.returnKeyType = UIReturnKeySend;
@@ -81,11 +80,11 @@
 {
     if (!_giftView)
     {
-        NSDictionary *giftDic = [KOShowShareApplication shareApplication].giftDictionary;
-        _giftView = [[GiftListView alloc] initWithFrame:CGRectMake(0, self.superview.frame.size.height, self.frame.size.width, GIFTVIEW_HEIGHT) giftArray:[giftDic allValues]];
+        _giftView = [[GiftListView alloc] initWithFrame:CGRectMake(0, self.superview.frame.size.height, self.frame.size.width, GIFTVIEW_HEIGHT) giftArray:self.giftArray];
         _giftView.backgroundColor = [UIColor whiteColor];
-        _giftView.delegate = self.delegate;
-        [self.superview addSubview:_giftView];
+        _giftView.delegate = (id<GiftListViewDelegate>)self.delegate;
+        //[self.superview addSubview:_giftView];
+        [self.superview insertSubview:_giftView belowSubview:self];
         //_giftView.delegate = self;
     }
 }
@@ -103,28 +102,45 @@
 #pragma mark 分享按钮
 - (void)shareButtonPressed:(UIButton *)sender
 {
+    __weak typeof(self) weakSelf = self;
     [self.messageTextField resignFirstResponder];
-    [UIView animateWithDuration:0.25 animations:^
+    [UIView animateWithDuration:0.35 animations:^
      {
-         self.frame = CGRectMake(self.originFrame.origin.x, self.originFrame.origin.y, self.originFrame.size.width,self.originFrame.size.height);
+         weakSelf.frame = CGRectMake(weakSelf.originFrame.origin.x, weakSelf.originFrame.origin.y, weakSelf.originFrame.size.width,weakSelf.originFrame.size.height);
      }];
 }
 
 #pragma mark 礼物按钮
 - (void)giftButtonPressed:(UIButton *)sender
 {
+    if (!self.giftArray)
+    {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(roomToolBarView:giftButtonPressed:)])
+        {
+            [self.delegate roomToolBarView:self giftButtonPressed:sender];
+        }
+        return;
+    }
+    if ([self.giftArray count] == 0)
+    {
+        [CommonTool addAlertTipWithMessage:@"礼物不存在"];
+        return;
+    }
     sender.selected = !sender.selected;
     [self.messageTextField resignFirstResponder];
+    
     [self addGiftView];
-    [UIView animateWithDuration:0.25 animations:^
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [UIView animateWithDuration:0.35 animations:^
      {
-         self.frame = CGRectMake(self.originFrame.origin.x, self.originFrame.origin.y, self.originFrame.size.width,self.originFrame.size.height);
+         weakSelf.frame = CGRectMake(weakSelf.originFrame.origin.x, weakSelf.originFrame.origin.y, weakSelf.originFrame.size.width,weakSelf.originFrame.size.height);
      }
      completion:^(BOOL finish)
      {
-         
-         float y = (sender.selected) ? self.superview.frame.size.height - self.frame.size.height - GIFTVIEW_HEIGHT : self.superview.frame.size.height;
-         self.giftView.frame = CGRectMake(self.giftView.frame.origin.x, y, self.giftView.frame.size.width,self.giftView.frame.size.height);
+         float y = (sender.selected) ? weakSelf.superview.frame.size.height - weakSelf.frame.size.height - GIFTVIEW_HEIGHT : weakSelf.superview.frame.size.height;
+         [UIView animateWithDuration:0.35 animations:^{weakSelf.giftView.frame = CGRectMake(weakSelf.giftView.frame.origin.x, y, weakSelf.giftView.frame.size.width,weakSelf.giftView.frame.size.height);}];
      }];
   
 }
@@ -146,17 +162,24 @@
     
     NSLog(@"=====%@",NSStringFromCGRect(self.originFrame));
 
-    [UIView animateWithDuration:0.25 animations:^
+    __weak typeof(self) weakSelf = self;
+    
+    [UIView animateWithDuration:0.35 animations:^
     {
-        self.frame = CGRectMake(self.originFrame.origin.x, self.originFrame.origin.y, self.originFrame.size.width,self.originFrame.size.height);
+        weakSelf.frame = CGRectMake(weakSelf.originFrame.origin.x, weakSelf.originFrame.origin.y, weakSelf.originFrame.size.width,weakSelf.originFrame.size.height);
+        if (weakSelf.giftView)
+        {
+            weakSelf.giftButton.selected = NO;
+            weakSelf.giftView.frame = CGRectMake(weakSelf.giftView.frame.origin.x, weakSelf.superview.frame.size.height, weakSelf.giftView.frame.size.width,weakSelf.giftView.frame.size.height);
+        }
     }
     completion:^(BOOL finish)
     {
         if ((sender.selected))
         {
-            self.frame = CGRectMake(self.originFrame.origin.x, self.originFrame.origin.y - _emojiView.frame.size.height, self.originFrame.size.width,self.originFrame.size.height);
+            weakSelf.frame = CGRectMake(weakSelf.originFrame.origin.x, weakSelf.originFrame.origin.y - _emojiView.frame.size.height, weakSelf.originFrame.size.width,weakSelf.originFrame.size.height);
         }
-        [self.messageTextField becomeFirstResponder];
+        [weakSelf.messageTextField becomeFirstResponder];
     }];
     
     
@@ -175,6 +198,7 @@
     {
         return;
     }
+    __weak typeof(self) weakSelf = self;
     NSDictionary *userInfo = notification.userInfo;
     CGSize keyBoardSize = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     CGRect frame = self.frame;
@@ -182,7 +206,7 @@
     NSTimeInterval time = [userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     [UIView animateWithDuration:time
                      animations:^{
-                         self.frame = (notification.name == UIKeyboardWillShowNotification) ? frame : self.originFrame;
+                         weakSelf.frame = (notification.name == UIKeyboardWillShowNotification) ? frame : weakSelf.originFrame;
                      }];
 }
 

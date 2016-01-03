@@ -20,7 +20,6 @@
 
 @interface GiftListView()
 
-@property (nonatomic, strong) NSArray *giftArray;
 @property (nonatomic, strong) UIScrollView *giftScrollView;
 
 @end
@@ -95,11 +94,20 @@
             column = 0; // The number of columns is 0
         }
         
+        NSDictionary *dic = self.giftArray[i];
+        NSString *imageUrl = [[KOShowShareApplication shareApplication] makeImageUrlWithRightHalfString:dic[@"img_url"]];
+        NSString *nameString = dic[@"gname"];
+        nameString = nameString ? nameString : @"";
+        NSString *levelName = dic[@"level_name"];
+        levelName = levelName ? levelName : @"免费";
+        
         float x = ((page - 1) * self.giftScrollView.frame.size.width) + (column * itemWidth) + (itemWidth - GIFT_ICON_WH)/2;
         float y = row * itemHeight + SPACE_Y;
         UIButton *giftButton = [UIButton buttonWithType:UIButtonTypeCustom];
         giftButton.frame = CGRectMake(x, y, GIFT_ICON_WH, GIFT_ICON_WH);
-        [giftButton setBackgroundImage:[UIImage imageNamed:self.giftArray[i]] forState:UIControlStateNormal];
+        //[giftButton setBackgroundImage:[UIImage imageNamed:self.giftArray[i]] forState:UIControlStateNormal];
+        [giftButton setImageWithURL:[NSURL URLWithString:imageUrl] forState:UIControlStateNormal];
+        //[giftButton setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:imageUrl]];
         giftButton.tag = i + 1;
         [giftButton addTarget:self action:@selector(giftButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.giftScrollView addSubview:giftButton];
@@ -107,12 +115,12 @@
         x = ((page - 1) * self.giftScrollView.frame.size.width) + (column * itemWidth);
         y += giftButton.frame.size.height;
         float height = LABEL_HEIGHT;
-        UILabel *nameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, itemWidth, height) textString:self.giftArray[i] textColor:MAIN_TEXT_COLOR textFont:MAIN_TEXT_FONT];
+        UILabel *nameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, itemWidth, height) textString:nameString textColor:MAIN_TEXT_COLOR textFont:MAIN_TEXT_FONT];
         nameLabel.textAlignment = NSTextAlignmentCenter;
         [self.giftScrollView addSubview:nameLabel];
         
         y += nameLabel.frame.size.height;
-        UILabel *freeLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, itemWidth, height) textString:@"免费" textColor:APP_MAIN_COLOR textFont:FONT(13.0)];
+        UILabel *freeLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, itemWidth, height) textString:levelName textColor:APP_MAIN_COLOR textFont:FONT(13.0)];
         freeLabel.textAlignment = NSTextAlignmentCenter;
         [self.giftScrollView addSubview:freeLabel];
         
@@ -124,7 +132,7 @@
 #pragma mark 点击礼物按钮
 - (void)giftButtonPressed:(UIButton *)sender
 {
-    if (self.delegate && [self.delegate performSelector:@selector(giftListView:didSelectedGiftAtIndex:) withObject:nil])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(giftListView:didSelectedGiftAtIndex:)])
     {
         [self.delegate giftListView:self didSelectedGiftAtIndex:(int)sender.tag - 1];
     }

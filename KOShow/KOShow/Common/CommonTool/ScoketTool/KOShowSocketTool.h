@@ -44,6 +44,11 @@
  */
 - (void)sendRoomGiftRequestWithGiftID:(NSString *)giftID anchorID:(NSString *)anchorID giftCount:(int)giftCount;
 
+/*
+ * 断掉socket
+ */
+- (void)clearSocket;
+
 @end
 
 @protocol KOShowSocketDelegate <NSObject>
@@ -56,4 +61,5 @@
 - (void)koShowSocketLoginRoomFailed:(KOShowSocketTool *)socket;
 - (void)koShowSocketSendMessageSucess:(KOShowSocketTool *)socket;
 - (void)koShowSocket:(KOShowSocketTool *)socket revicedMessageWithDictionary:(NSDictionary *)dataDic;
+- (void)koShowSocket:(KOShowSocketTool *)socket revicedGiftWithDictionary:(NSDictionary *)dataDic;
 @end

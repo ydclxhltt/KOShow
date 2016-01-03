@@ -9,6 +9,20 @@
 #ifndef KOShowHeader_h
 #define KOShowHeader_h
 
+
+/******产品*****/
+//产品名
+#define PRODUCT_NAME               @"kzzb"
+//版本号
+#define PRODUCT_VERSION            @"01.00"
+//渠道号
+#define CHANNEL_ID                 @"0001"
+//平台
+#define PLATFORM                   @"IOS"
+//系统版本号
+#define SYSTEM_VERSION             [[UIDevice currentDevice] systemVersion]
+
+
 /******首页*****/
 
 //HeaderViewHeight

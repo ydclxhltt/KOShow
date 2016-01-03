@@ -7,10 +7,10 @@
 //
 
 #define SPACE_X             5.0
-#define ICON_WH             70.0
+#define ICON_WH             50.0
 #define SPACE_Y             15.0
 #define ADD_X               15.0
-#define LABEL_HEIGHT        30.0
+#define LABEL_HEIGHT        25.0
 #define ANCHOR_LINE_COLOR   RGB(233.0,233.0,233.0)
 
 #import "AnchorDetailView.h"
@@ -42,15 +42,15 @@
 {
     float x = SPACE_X;
     float y = SPACE_Y;
-    _iconImageView = [CreateViewTool createImageViewWithFrame:CGRectMake(x, y, ICON_WH, ICON_WH) placeholderImage:[UIImage imageNamed:@"2.jpg"]];
+    _iconImageView = [CreateViewTool createImageViewWithFrame:CGRectMake(x, y, ICON_WH, ICON_WH) placeholderImage:[UIImage imageNamed:@"anchor_default.jpg"]];
     [self addSubview:_iconImageView];
     
     x += ICON_WH + ADD_X;
-    _anchorNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, self.frame.size.width - x, LABEL_HEIGHT) textString:@"美女主播" textColor:MAIN_TEXT_COLOR textFont:FONT(16.0)];
+    _anchorNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, self.frame.size.width - x, LABEL_HEIGHT) textString:@"" textColor:MAIN_TEXT_COLOR textFont:FONT(15.0)];
     [self addSubview:_anchorNameLabel];
     
     y += _anchorNameLabel.frame.size.height;
-    _roomNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, self.frame.size.width - x, LABEL_HEIGHT) textString:@"正在直播: 坦克世界" textColor:DETAIL_TEXT_COLOR textFont:FONT(16.0)];
+    _roomNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, y, self.frame.size.width - x, LABEL_HEIGHT) textString:@"" textColor:DETAIL_TEXT_COLOR textFont:FONT(15.0)];
     [self addSubview:_roomNameLabel];
     
     y = _iconImageView.frame.origin.y + _iconImageView.frame.size.height + SPACE_Y;
@@ -79,13 +79,34 @@
     _textView.textColor = DETAIL_TEXT_COLOR;
     _textView.editable = NO;
     _textView.font = DETAIL_TEXT_FONT;
-    NSString *text = @"美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军.美女主播是中国游戏新生代玩家,曾获得亚太地区大赛冠军...";
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text];
-    [CommonTool makeString:text toAttributeString:string withString:text withLineSpacing:10.0];
-    _textView.attributedText = string;
     [self addSubview:_textView];
+}
+
+
+#pragma mark 设置数据
+- (void)setAnchorDataWithImageUrl:(NSString *)imageUrl anchorName:(NSString *)name roomName:(NSString *)roomName anchorDetailText:(NSString *)detailText
+{
+    imageUrl = imageUrl ? imageUrl : @"";
+    name = name ? name : @"";
+    roomName = roomName ? roomName : @"";
+    detailText = detailText ? detailText : @"";
+    [self.iconImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"anchor_default.jpg"]];
+    self.anchorNameLabel.text = name;
     
+    NSString *newRoomName = [@"正在直播: " stringByAppendingString:roomName];
+    NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:newRoomName];
+    [CommonTool makeString:newRoomName toAttributeString:nameString withString:roomName withTextColor:APP_MAIN_COLOR withTextFont:FONT(15.0)];
+    self.roomNameLabel.attributedText = nameString;
     
+    [self setDetailText:detailText];
+
+}
+
+- (void)setDetailText:(NSString *)detailText
+{
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:detailText];
+    [CommonTool makeString:detailText toAttributeString:string withString:detailText withLineSpacing:10.0];
+    self.textView.attributedText = string;
 }
 
 @end

@@ -36,5 +36,7 @@
 - (BOOL)isConnected;
 //重新连接
 - (void)reconnect;
+//断开连接
+- (void)clearSocket;
 
 @end

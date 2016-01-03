@@ -11,8 +11,18 @@
 @interface KOShowShareApplication : NSObject
 
 @property (nonatomic, strong) NSDictionary *emojiDictionary;
-@property (nonatomic, strong) NSDictionary *giftDictionary;
+@property (nonatomic, strong) NSArray *giftArray;
+@property (nonatomic, strong) NSDictionary *userInfoDictionary;
+@property (nonatomic, strong) NSString *imageServer;
+@property (nonatomic, strong) NSString *uploadIconUrl;
+@property (nonatomic, strong) NSString *socketServerIP;
+@property (nonatomic, strong) NSString *socketPort;
+@property (nonatomic, assign) BOOL isLogin;
 
 + (instancetype)shareApplication;
+
++ (void)saveUserInfoWithUserName:(NSString *)userName password:(NSString *)password;
+
+- (NSString *)makeImageUrlWithRightHalfString:(NSString *)rightHalfString;
 
 @end

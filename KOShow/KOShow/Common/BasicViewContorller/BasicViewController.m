@@ -8,6 +8,7 @@
 
 #import "BasicViewController.h"
 
+
 #define NAVBAR_COLOR    RGB(38.0,39.0,40.0)
 #define VIEW_BG_COLOR   RGB(232.0, 232.0, 233.0)
 
@@ -21,12 +22,12 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = VIEW_BG_COLOR;
-    
     [self.navigationController.navigationBar setBackgroundImage:[CommonTool imageWithColor:NAVBAR_COLOR] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.navigationController.navigationBar.translucent = YES;
+
     // Do any additional setup after loading the view.
 }
 
@@ -146,9 +147,46 @@
 }
 
 
+#pragma mark 添加刷新试图
+- (void)addRefreshHeaderView
+{
+    __weak typeof(self) weakSelf = self;
+    
+    _refreshHeaderView = [MJRefreshHeaderView header];
+    _refreshHeaderView.scrollView = self.table;
+    _refreshHeaderView.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView)
+    {
+        [weakSelf refreshData];
+    };
+
+}
+
+- (void)refreshData
+{
+
+}
+
+#pragma mark 添加加载更多视图
+- (void)addRefreshFooterView
+{
+    __weak typeof(self) weakSelf = self;
+    _refreshFooterView = [MJRefreshFooterView footer];
+    _refreshFooterView.scrollView = self.table;
+    _refreshFooterView.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView)
+    {
+        [weakSelf getMoreData];
+    };
+}
+
+- (void)getMoreData
+{
+    
+}
+
+
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return  UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+    return  UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
@@ -165,6 +203,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    [_refreshHeaderView free];
+    [_refreshFooterView free];
 }
 
 /*

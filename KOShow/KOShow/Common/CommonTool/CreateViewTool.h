@@ -10,6 +10,7 @@
 #import "CommonTool.h"  
 #import "UIImageView+WebCache.h"
 #import "UIImageView+LK.h"
+#import "UIButton+WebCache.h"
 
 @interface CreateViewTool : NSObject
 

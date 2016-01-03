@@ -23,16 +23,17 @@
 - (void)requestWithUrl:(NSString *)url requestParamas:(NSDictionary *)paramas requestType:(RequestType)type requestSucess:(void (^)(AFHTTPRequestOperation *operation,id responseDic))sucess requestFail:(void (^)(AFHTTPRequestOperation *operation,NSError *error))fail
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.requestSerializer = [AFJSONRequestSerializer  serializer];
-    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    manager.requestSerializer = [AFHTTPRequestSerializer  serializer];
+    //[manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     NSLog(@"manager.requestSerializer===%@",manager.requestSerializer.HTTPRequestHeaders);
     manager.requestSerializer.timeoutInterval = TIMEOUT;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/json",@"application/json",@"text/plain",nil];
-    //NSLog(@"[NSHTTPCookieStorage sharedHTTPCookieStorage]===%@",[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies);
+    NSLog(@"[NSHTTPCookieStorage sharedHTTPCookieStorage]===%@",[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies);
     requestOperation = [manager POST:url parameters:paramas
           success:^(AFHTTPRequestOperation *operation,id responeDic)
           {
+              NSLog(@"allHeaders===%@",operation.response.allHeaderFields);
               if ([responeDic isKindOfClass:[NSDictionary class]] || [responeDic isKindOfClass:[NSMutableDictionary class]])
               {
                   if (sucess)

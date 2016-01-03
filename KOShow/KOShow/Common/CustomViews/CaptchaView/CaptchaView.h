@@ -10,4 +10,6 @@
 
 @interface CaptchaView : UIView
 
+@property (nonatomic, strong) NSString *changeString;  //验证码的字符串
+
 @end

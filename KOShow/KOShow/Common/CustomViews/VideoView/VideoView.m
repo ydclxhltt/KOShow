@@ -48,9 +48,8 @@
 //添加缩略图
 - (void)addPicImageView
 {
-    NSArray *array = @[@"http://img.blog.163.com/photo/oIEPVeb_WudfnaSAHaTX7A==/3443283390101808506.jpg",@"http://upload.chinaz.com/2015/1124/1448355948292.jpg",@"http://www.hinews.cn/pic/0/15/25/46/15254699_007721.jpg",@"http://img1.91.com/uploads/allimg/150403/750-150403164639-55.jpg",@"http://g.hiphotos.baidu.com/zhidao/pic/item/f703738da97739128dbe78e3fa198618377ae29c.jpg",@"http://spiderdaily.wayi.com.tw/upload/images/20120711h7.jpg",@"http://i1.mopimg.cn/img/dzh/2014-11/1400/20141117160158401.jpg"];
     _picImageView = [CreateViewTool createImageViewWithFrame:CGRectMake(0, 0, self.frame.size.width, ROOM_PIC_HEIGHT) placeholderImage:nil];
-    [_picImageView setImageWithURL:[NSURL URLWithString:array[arc4random() % [array count]]] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"%d.jpg",arc4random()%6 + 1]]];
+    [_picImageView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"room_default"]];
     [self addSubview:_picImageView];
 }
 
@@ -69,7 +68,7 @@
     [infoView addSubview:_anchorNameLabel];
     
     x = infoView.frame.size.width - SPACE - COUNT_LABEL_WIDTH;
-    _userCountLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, 0, COUNT_LABEL_WIDTH, infoView.frame.size.height) textString:@"1234" textColor:[UIColor whiteColor] textFont:FONT(12.0)];
+    _userCountLabel = [CreateViewTool createLabelWithFrame:CGRectMake(x, 0, COUNT_LABEL_WIDTH, infoView.frame.size.height) textString:@"" textColor:[UIColor whiteColor] textFont:(SCREEN_WIDTH == 320)? FONT(11.0) : FONT(12.0)];
     [infoView addSubview:_userCountLabel];
     
     x -= (ICON_WH + SPACE);
@@ -80,7 +79,7 @@
 - (void)addRoomLabel
 {
     float y = self.picImageView.frame.size.height + ADD_Y;
-    _roomNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(0, y,  self.picImageView.frame.size.width , self.frame.size.height - y) textString:@"直播间名称" textColor:MAIN_TEXT_COLOR textFont:MAIN_TEXT_FONT];
+    _roomNameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(0, y,  self.picImageView.frame.size.width , self.frame.size.height - y) textString:@"" textColor:MAIN_TEXT_COLOR textFont:MAIN_TEXT_FONT];
     _roomNameLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_roomNameLabel];
 }
@@ -89,6 +88,15 @@
 {
     _clickButton = [CreateViewTool createButtonWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) buttonTitle:@"" titleColor:nil normalBackgroundColor:nil highlightedBackgroundColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.6] selectorName:@"" tagDelegate:nil];
     [self addSubview:_clickButton];
+}
+
+#pragma mark 设置数据
+- (void)setVideoDataWithImageUrl:(NSString *)imageUrl anchorName:(NSString *)name onlineCount:(int)count roomName:(NSString *)roomName
+{
+    [self.picImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"room_default"]];
+    self.anchorNameLabel.text = name;
+    self.userCountLabel.text = [NSString stringWithFormat:@"%d",count];
+    self.roomNameLabel.text = roomName;
 }
 
 @end
