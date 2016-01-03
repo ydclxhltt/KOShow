@@ -50,7 +50,7 @@
 
 - (void)addButton
 {
-    UIButton *exitButton = [CreateViewTool createButtonWithFrame:CGRectMake(SPACE_X, self.table.contentSize.height + SPACE_Y, self.view.frame.size.width - 2 * SPACE_X, BUTTON_HEIGHT) buttonTitle:@"退出当前账号" titleColor:[UIColor whiteColor] normalBackgroundColor:APP_MAIN_COLOR highlightedBackgroundColor:[UIColor lightGrayColor] selectorName:@"" tagDelegate:self];
+    UIButton *exitButton = [CreateViewTool createButtonWithFrame:CGRectMake(SPACE_X, self.table.contentSize.height + SPACE_Y, self.view.frame.size.width - 2 * SPACE_X, BUTTON_HEIGHT) buttonTitle:@"退出当前账号" titleColor:[UIColor whiteColor] normalBackgroundColor:APP_MAIN_COLOR highlightedBackgroundColor:nil selectorName:@"" tagDelegate:self];
     exitButton.titleLabel.font = FONT(15.0);
     [self.table addSubview:exitButton];
 }

@@ -7,8 +7,8 @@
 //
 
 #define SPACE_X                 15.0 * CURRENT_SCALE
-#define SPACE_Y                 10.0
-#define SEGMENTVIEW_HEIGHT      35.0
+#define SPACE_Y                 10.0 * CURRENT_SCALE
+#define SEGMENTVIEW_HEIGHT      35.0 * CURRENT_SCALE
 #define HEADER_HEIGHT           SEGMENTVIEW_HEIGHT + 2 * SPACE_Y
 
 

@@ -10,6 +10,8 @@
 #define ICON_WH             120.0 * CURRENT_SCALE
 #define SECTION_HEIGHT      15.0
 #define SPACE_Y             30.0 * CURRENT_SCALE
+#define ADD_Y               10.0 * CURRENT_SCALE
+#define LABEL_HEIGHT        20.0 * CURRENT_SCALE
 #define LOGIN_BTN_HEIGHT    30.0 * CURRENT_SCALE
 #define LOGIN_BTN_WIDTH     85.0 * CURRENT_SCALE
 #define BTN_LAYER_COLOR     RGB(236.0, 187.0, 91.0)
@@ -19,6 +21,7 @@
 #import "MySaveViewController.h"
 #import "BookMarkViewController.h"
 #import "SettingViewController.h"
+#import "LoginViewController.h"
 
 @interface MineViewController ()
 
@@ -26,6 +29,7 @@
 @property (nonatomic, strong) NSArray *imageArray;
 @property (nonatomic, strong) UIImageView *iconImageView;
 @property (nonatomic, strong) UIButton *loginButton;
+@property (nonatomic, strong) UILabel *nameLabel;
 
 @end
 
@@ -34,11 +38,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.title = @"我的";
     [self setNavBarItemWithImageName:@"nav_logo" navItemType:LeftItem selectorName:@""];
+    
     _titleArray = @[@[@"我的订阅",@"我的收藏"],@[@"设置"]];
     _imageArray = @[@[@"icon_subscribe",@"icon_collect"],@[@"icon_setting"]];
+    
     [self initUI];
+    
+    [self addNotifications];
     // Do any additional setup after loading the view.
 }
 
@@ -72,8 +81,46 @@
      [CommonTool setViewLayer:_loginButton withLayerColor:APP_MAIN_COLOR bordWidth:1.0];
     _loginButton.titleLabel.font = FONT(15.0);
     [_iconImageView addSubview:_loginButton];
-   
     
+    y = _iconImageView.frame.size.height + _iconImageView.frame.origin.y + ADD_Y;
+    _nameLabel = [CreateViewTool createLabelWithFrame:CGRectMake(0, y, bgImageView.frame.size.width, LABEL_HEIGHT) textString:@"" textColor:[UIColor whiteColor] textFont:FONT(16.0)];
+    _nameLabel.textAlignment =  NSTextAlignmentCenter;
+    [bgImageView addSubview:_nameLabel];
+}
+
+#pragma mark 添加通知
+- (void)addNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSucess:) name:@"LoginSucess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOut:) name:@"LoginOut" object:nil];
+}
+
+
+#pragma mark 点击登录按钮
+- (void)loginButtonPressed:(UIButton *)sender
+{
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    [self presentViewController:loginNav animated:YES completion:NULL];
+}
+
+
+#pragma mark 登录成功
+- (void)loginSucess:(NSNotification *)nofitication
+{
+    self.loginButton.hidden = YES;
+    NSDictionary *userDic = [KOShowShareApplication shareApplication].userInfoDictionary;
+    NSString *userName = userDic[@"login_name"];
+    userName = (userName) ? userName : @"";
+    NSString *nickname = userDic[@"nickname"];
+    nickname = (nickname) ? nickname : @"";
+    self.nameLabel.text = (nickname.length > 0) ? nickname : userName;
+}
+
+#pragma mark 退出登录
+- (void)loginOut:(NSNotification *)nofitication
+{
+    self.loginButton.hidden = NO;
 }
 
 #pragma mark UITableViewDelegate&UITableViewDataSource
@@ -151,6 +198,12 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 /*
 #pragma mark - Navigation
